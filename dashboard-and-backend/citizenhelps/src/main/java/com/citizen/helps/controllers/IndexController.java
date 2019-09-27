@@ -64,9 +64,9 @@ public class IndexController extends VaquitaController {
                             span(minutesAgo+" minutes ago")
                         ).withClasses("col-md-6"),
                         div(
-                            button("view >>").withClasses("btn btn-sm btn-outline-primary")
+                            button("view").withClasses("btn btn-block btn-sm btn-outline-primary")
                         ).withClasses("col-md-6")
-                    ).withClasses("row justify-content-center")
+                    ).withClasses("row align-items-center justify-content-center")
                 ).withClasses("card-footer","text-muted")
         ).withClasses("card","m-2");
     }

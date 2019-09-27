@@ -28,7 +28,12 @@ public class IndexController extends VaquitaController {
                         ).withClasses("navbar", "navbar-light", "bg-light"),
                         main(attrs("#main.content"),
                                 div(
-                                        div("notifications").withClasses("col-md-3"),
+                                        div(
+                                                h2("Alerts").withClasses("text-center"),
+                                                hr(),
+                                                makeAlertCard("Motorcycle Accident",4),
+                                                makeAlertCard("Vandalism",10)
+                                        ).withClasses("col-md-3 min-vh-100 bg-light").withStyle(""),
                                         div("map").withClasses("col-md-6"),
                                         div(makeDetailView()).withClasses("col-md-3")
                                 ).withClasses("row")
@@ -37,6 +42,16 @@ public class IndexController extends VaquitaController {
         );
 
         return new VaquitaHTMLResponse(200, page.render());
+    }
+
+    private static ContainerTag makeAlertCard(String title, int minutesAgo){
+        return div(
+                div(
+                    h5(title).withClasses("card-title").withStyle("color:red;"),
+                    p("accident alert").withClasses("card-text")
+                ).withClasses("card-body"),
+                div(minutesAgo+" minutes Ago").withClasses("card-footer","text-muted")
+        ).withClasses("card","m-2");
     }
 
     @Override

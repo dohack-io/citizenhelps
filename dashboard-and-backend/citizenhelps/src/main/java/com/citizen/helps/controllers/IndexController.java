@@ -39,7 +39,7 @@ public class IndexController extends VaquitaController {
                                         div(
                                             div().withId("mapid")
                                         ).withClasses("col-md-6"),
-                                        div(makeDetailView()).withClasses("col-md-3")
+                                        div(makeDetailView()).withClasses("col-md-3 min-vh-100 bg-light")
                                 ).withClasses("row")
                         ),
                         script().withSrc("/js/myleaflet.js")
@@ -79,7 +79,7 @@ public class IndexController extends VaquitaController {
     private static ContainerTag makeDetailView() {
         ContainerTag details = table(
                 tr(
-                        th("Details")
+                        th(h2("Details"))
                 ),
                 tr(
                         td("Description")
@@ -89,11 +89,13 @@ public class IndexController extends VaquitaController {
                 ),
                 tr(
                         td(
-                                img().withSrc("").withAlt("Image of the accident")
+                                img().withSrc("https://via.placeholder.com/320")
+                                        .withStyle("width:100%")
+                                        .withAlt("Image of the accident")
                         )
                 )
 
-        );
+        ).withStyle("width:100%");
         return details;
     }
 

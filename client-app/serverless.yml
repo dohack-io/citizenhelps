@@ -1,6 +1,6 @@
-org: abhackathon
-app: culture-dev-app
-service: culture-dev
+org: cityhelps
+app: cityhelps-dev-app
+service: cityhelps-dev
 
 provider:
   name: aws
@@ -20,7 +20,7 @@ functions:
 
 plugins:
   - serverless-apigw-binary
-  - serverless-domain-manager
+#  - serverless-domain-manager
   - serverless-offline
 custom:
   secrets: ${file(secrets.json)}

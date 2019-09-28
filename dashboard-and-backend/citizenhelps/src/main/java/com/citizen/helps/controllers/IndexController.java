@@ -17,12 +17,20 @@ public class IndexController extends VaquitaController {
     public VaquitaHTTPResponse handleGET(VaquitaHTTPJustRequest vaquitaHTTPJustRequest, VaquitaApp vaquitaApp) throws Exception {
         ContainerTag page = html(
                 head(
-                        title("Title"),
-                        link().withRel("stylesheet").withHref("/css/main.css")
+                        title("CityHelps"),
+                        link().withRel("stylesheet").withHref("/css/main.css"),
+                        link().withRel("stylesheet").withHref("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
                 ),
                 body(
+                        nav(
+                                span("CityHelps").withClasses("navbar-brand")
+                        ).withClasses("navbar","navbar-light","bg-light"),
                         main(attrs("#main.content"),
-                                h1("Heading!")
+                                div(
+                                        div("notifications").withClasses("col-md-3"),
+                                        div("map").withClasses("col-md-6"),
+                                        div("details").withClasses("col-md-3")
+                                ).withClasses("row")
                         )
                 )
         );

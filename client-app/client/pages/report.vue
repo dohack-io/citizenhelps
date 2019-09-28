@@ -1,5 +1,11 @@
 <template>
+    <v-app>
+
         <v-row justify="space-around" align="start">
+            <v-col cols="12">
+                <Video @close="take_video=!take_video" v-if="take_video"></Video>
+                <v-btn v-if="!take_video" @click="take_video=!take_video">foto/video machen</v-btn>
+            </v-col>
             <v-col cols="12">
                 <v-switch v-model="valid" class="ma-4" label="Valid" readonly></v-switch>
                 <v-switch v-model="lazy" class="ma-4" label="Lazy"></v-switch>
@@ -74,13 +80,22 @@
 
         </v-row>
 
+    </v-app>
+
 
 </template>
 
 <script>
+  import Video from "./video.vue";
+
   export default {
     name: "report",
+    components: {
+      Video,
+
+    },
     data: () => ({
+      take_video: false,
       valid: true,
       name: '',
       nameRules: [

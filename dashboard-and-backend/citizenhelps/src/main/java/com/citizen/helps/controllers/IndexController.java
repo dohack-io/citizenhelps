@@ -82,7 +82,7 @@ public class IndexController extends VaquitaController {
                         th(h2("Details"))
                 ),
                 tr(
-                        td("Description")
+                        td("Description").withId("description")
                 ),
                 tr(
                         td("ReactionTime")

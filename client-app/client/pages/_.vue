@@ -1,18 +1,31 @@
 <template>
     <v-app>
         <v-container fluid>
-
-            <v-row no-gutters class="pa-1" :style="button.style" v-for="(button,key) in first_buttons" :key="key" align="stretch">
+            <v-row v-if="loading" align="center" justify="center" style="height:100%;">
+                <v-col style="height: 200px;text-align: center">
+                    <v-progress-circular
+                            :size="70"
+                            :width="7"
+                            color="purple"
+                            indeterminate
+                    ></v-progress-circular>
+                </v-col>
+            </v-row>
+            <v-row v-if="stage==='start'"
+                   no-gutters class="pa-1" :style="button.style" v-for="(button,key) in first_buttons" :key="key"
+                   align="stretch">
                 <v-col>
-                    <v-btn :color="button.color"  style="height: 100%" block @click="button='my_account'">
+                    <v-btn :color="button.color" x-large style="height: 100%;font-size: 35px" block
+                           @click="switch_stage(button.target_stage)">
                         {{button.text}}
                     </v-btn>
                 </v-col>
 
             </v-row>
-
+            <Help v-if="stage==='help'"></Help>
 
         </v-container>
+
     </v-app>
 
 </template>
@@ -20,12 +33,17 @@
 <script>
   import axios from "axios";
   import Vue from "vue";
-
+  import Help from "./help.vue";
   //import {LMap,LTileLayer,LControl} from "./../../node_modules/vue2-leaflet"
 
   var api_host = 'https://ohsrb65n38.execute-api.eu-central-1.amazonaws.com/proxy/'
 
   ;
+
+  function sleep(s) {
+    return new Promise(resolve => setTimeout(resolve, s * 1000));
+  }
+
   // var api_host = "http://localhost:5000/";
   // if (!location.hostname.includes("127.0.0.1") && !location.hostname.includes("localhost")) {
   // api_host = "http://localhost:5000";
@@ -44,15 +62,20 @@
   });
 
   export default {
-    components: {},
+    components: {
+      Help,
+    },
     data: () => ({
+      stage: 'start',
+      loading: false,
       first_buttons: [
         {
           color: 'red',
           text: 'Hilfe holen',
           style: {
             height: '50%',
-          }
+          },
+          target_stage: 'help'
 
         },
         {
@@ -60,82 +83,39 @@
           text: 'Erste Hilfe',
           style: {
             height: '30%',
-          }
+          },
+          target_stage: 'help'
         },
         {
           color: 'orange',
           text: 'Bericht erfassen',
           style: {
             height: '20%',
-          }
+          },
+          target_stage: 'help'
         },
 
       ],
-      me: {
-        name: 'Herr Bogomolov'
-      },
+
       visited: [''],
       data1: 0,
       logged_in: false,
       card_before: ['home'],
       button: "home",
       view_data: {},
-      start_card: {
-        title: "Hallo Mieter!",
-        cards: [{
-          subtitle: "Nachrichten",
-          texts: [
-            {
-              text: "Willkommen unseren neunen Mitbewohner, Herr Bogomolov 😃❤️",
-              img: "herrbogomolov.jpg",
-              btn: "Sag Hi!",
-              at: 'hi',
-            },
-            {
-              text: "Nächste Reinigung diesen Freitag um 16:00 Uhr bei ISD",
-              btn: "info",
-              img: "isd_logo_small.jpg"
-            },
-            {
-              text: "Birne defekt - repariert!",
-              btn: "info",
-              at: "info_defect",
-              img: "isd_logo_small.jpg"
-            },
-          ]
-        },
-          {
-            subtitle: "Werbung",
-            texts: [
-              {
-                text: 'Neue Pizzeria "NeuNeu" 🍕',
-                btn: "info",
-                at: 'get_pizza',
-                img: "pizza.png"
-              },
-              {
-                text: "Cafe ToGo. Fair Trade. Columbia ☕",
-                btn: "info",
-                at: "ad",
-                img: "starbucks.jpg"
-              },
-              {
-                text: "Ich geh Gassie mit Ihrem Hund oder Katze 😉 🐶",
-                btn: "Kontakt",
-                at: "ad",
-                img: "girl.jpg"
-              },
 
-            ]
-          }
-        ],
-
-      },
     }),
     methods: {
       get_coupon: function () {
 
       },
+      switch_stage: async function (stage_name) {
+        this.loading = true;
+        this.stage = "";
+        await sleep(0.9);
+        this.loading = !this.loading;
+        this.stage = stage_name;
+      }
     },
     watch: {
       button() {

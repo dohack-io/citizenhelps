@@ -1,21 +1,41 @@
 <template>
     <v-app>
-
-
-        <v-row no-gutters class="pa-1" style="height: 100%;"
+        <v-row no-gutters class="pa-1" style="height: 90%;"
                align="stretch">
             <v-col>
-                <v-card color="red" x-large style="height: 100%;font-size: 35px" block>
-                    <v-row justify="center" align="center" style="height: 100%;">
+                <v-card x-large style="height: 100%;font-size: 90px" block>
+                    <v-row justify="center" align="center" style="height: 60%;">
                         <v-col style="height: 100px;text-align: center">
-                            <v-icon style="font-size: 60px">call</v-icon>
-                            {{points}}
+                            <v-col cols="12">
+                                <v-icon style="font-size: 90px; color: black">call</v-icon>
+
+                            </v-col>
+                            <v-col cols="12">
+                                {{points}}
+
+                            </v-col>
+                        </v-col>
+                    </v-row>
+                    <v-row justify="center" align="center" style="height: 10%;">
+
+                    </v-row>
+                    <v-row justify="center" align="center" style="height: 30%;">
+                        <v-col align="center">
+                            <v-col cols="10">
+                                <v-btn :disabled="disabled0" @click="disabled0=true" large block>standort senden</v-btn>
+
+                            </v-col>
+                        </v-col>
+                        <v-col align="center">
+                            <v-col cols="10">
+                                <v-btn :disabled="disabled1" @click="disabled1=true"  large block>persönliche daten senden</v-btn>
+                            </v-col>
                         </v-col>
                     </v-row>
 
+
                 </v-card>
             </v-col>
-
         </v-row>
     </v-app>
 
@@ -33,12 +53,14 @@
     data: () => ({
       points: ".",
       calling_icon: mdiCallMade,
+      disabled1 :false,
+      disabled0:false,
     }),
     methods: {
-      close:function(){
+      close: function () {
         this.$emit('close');
       },
-      alert:function(msg){
+      alert: function (msg) {
         alert(msg)
       },
       running_points: async function () {

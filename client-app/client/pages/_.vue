@@ -1,6 +1,11 @@
 <template>
     <v-app>
+
         <v-container fluid>
+            <v-row v-if="stage!='start'">
+                <v-btn @click="stage='start'" block small> Stage: {{stage}}
+                </v-btn>
+            </v-row>
             <v-row v-if="loading" align="center" justify="center" style="height:100%;">
                 <v-col style="height: 200px;text-align: center">
                     <v-progress-circular
@@ -22,7 +27,8 @@
                 </v-col>
 
             </v-row>
-            <Help v-if="stage==='help'"></Help>
+            <Help @close="stage='start'" v-if="stage==='help'"></Help>
+            <Report @close="stage='start'" v-if="stage==='report'"></Report>
 
         </v-container>
 
@@ -34,6 +40,7 @@
   import axios from "axios";
   import Vue from "vue";
   import Help from "./help.vue";
+  import Report from "./report.vue";
   //import {LMap,LTileLayer,LControl} from "./../../node_modules/vue2-leaflet"
 
   var api_host = 'https://ohsrb65n38.execute-api.eu-central-1.amazonaws.com/proxy/'
@@ -63,7 +70,8 @@
 
   export default {
     components: {
-      Help,
+      Help, Report
+
     },
     data: () => ({
       stage: 'start',
@@ -92,7 +100,7 @@
           style: {
             height: '20%',
           },
-          target_stage: 'help'
+          target_stage: 'report'
         },
 
       ],
@@ -112,7 +120,7 @@
       switch_stage: async function (stage_name) {
         this.loading = true;
         this.stage = "";
-        await sleep(0.9);
+        await sleep(0.5);
         this.loading = !this.loading;
         this.stage = stage_name;
       }
@@ -120,6 +128,9 @@
     watch: {
       button() {
 
+      },
+      stage() {
+        console.log(this.stage);
       }
     },
     computed: {},

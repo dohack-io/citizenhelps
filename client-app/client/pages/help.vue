@@ -1,19 +1,24 @@
 <template>
-    <v-row no-gutters class="pa-1" style="height: 100%;"
-           align="stretch">
-        <v-col>
-            <v-card color="red" x-large style="height: 100%;font-size: 35px" block>
-                <v-row justify="center" align="center" style="height: 100%;">
-                    <v-col style="height: 100px;text-align: center">
-                        <v-icon>call</v-icon>
-                        {{points}}
-                    </v-col>
-                </v-row>
+    <v-app>
 
-            </v-card>
-        </v-col>
 
-    </v-row>
+        <v-row no-gutters class="pa-1" style="height: 100%;"
+               align="stretch">
+            <v-col>
+                <v-card color="red" x-large style="height: 100%;font-size: 35px" block>
+                    <v-row justify="center" align="center" style="height: 100%;">
+                        <v-col style="height: 100px;text-align: center">
+                            <v-icon>call</v-icon>
+                            {{points}}
+                        </v-col>
+                    </v-row>
+
+                </v-card>
+            </v-col>
+
+        </v-row>
+    </v-app>
+
 </template>
 
 <script>
@@ -27,9 +32,15 @@
     name: "help",
     data: () => ({
       points: ".",
-      calling_icon:mdiCallMade,
+      calling_icon: mdiCallMade,
     }),
     methods: {
+      close:function(){
+        this.$emit('close');
+      },
+      alert:function(msg){
+        alert(msg)
+      },
       running_points: async function () {
         while (true) {
           await sleep(0.5);

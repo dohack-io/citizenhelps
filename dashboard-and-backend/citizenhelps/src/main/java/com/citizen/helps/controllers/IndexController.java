@@ -98,6 +98,11 @@ public class IndexController extends VaquitaController {
                             .withStyle("width:100%")
                             .withAlt("Image of the accident")
 
+                ),
+                div().withClasses("m-3"),
+
+                div(
+                        button("Wagen losschicken").withClasses("btn btn-block btn-sm btn-outline-primary")
                 )
 
         ).withStyle("width:100%");

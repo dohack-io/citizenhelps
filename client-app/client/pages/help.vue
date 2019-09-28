@@ -4,7 +4,7 @@
                align="stretch">
             <v-col>
                 <v-card x-large style="height: 100%;font-size: 90px" block>
-                    <v-row justify="center" align="center" style="height: 60%;">
+                    <v-row justify="center" align="center" style="height: 50%;">
                         <v-col style="height: 100px;text-align: center">
                             <v-col cols="12">
                                 <v-icon style="font-size: 90px; color: black">call</v-icon>
@@ -19,17 +19,13 @@
                     <v-row justify="center" align="center" style="height: 10%;">
 
                     </v-row>
-                    <v-row justify="center" align="center" style="height: 30%;">
-                        <v-col align="center">
-                            <v-col cols="10">
-                                <v-btn :disabled="disabled0" @click="disabled0=true" large block>standort senden</v-btn>
-
-                            </v-col>
+                    <v-row justify="center" align="start" style="height: 10%;" wrap>
+                        <v-col cols="10">
+                            <v-btn :disabled="disabled0" @click="disabled0=true" large block>standort senden</v-btn>
                         </v-col>
-                        <v-col align="center">
-                            <v-col cols="10">
-                                <v-btn :disabled="disabled1" @click="disabled1=true"  large block>persönliche daten senden</v-btn>
-                            </v-col>
+                        <v-col cols="10">
+                            <v-btn :disabled="disabled1" @click="disabled1=true" large block>persönliche daten senden
+                            </v-btn>
                         </v-col>
                     </v-row>
 
@@ -53,8 +49,8 @@
     data: () => ({
       points: ".",
       calling_icon: mdiCallMade,
-      disabled1 :false,
-      disabled0:false,
+      disabled1: false,
+      disabled0: false,
     }),
     methods: {
       close: function () {

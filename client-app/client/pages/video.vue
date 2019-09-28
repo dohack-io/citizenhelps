@@ -16,26 +16,30 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
         <v-row column>
             <v-row align="center" justify="center" wrap>
                 <v-col v-if="stage==='start'">
-                    <v-btn @click="(make_photo(),stage='photo_taken')">Make Photo</v-btn>
+
+                    <v-btn @click="(make_photo(),stop_video(),stage='photo_taken')">Make Photo</v-btn>
                 </v-col>
                 <v-col v-if="stage==='photo_taken'">
                     <v-btn @click="send_picture()">Save&Send</v-btn>
                     <v-btn @click="(stage='start',stop_video(),go())">New Image</v-btn>
                 </v-col>
 
-                <v-col>
-                    <v-btn @click="close()">X</v-btn>
+                <v-col cols="2" style="text-align: left">
+                    <v-btn @click="close()"> {{flipBtn?'o':'x'}}</v-btn>
                 </v-col>
 
             </v-row>
             <v-row justify="center" wrap>
-                <v-col  pl-2 v-if="stage==='start'">
-                    <video ref="video" width="100%" :height="video_height" autoplay></video>
-                </v-col>
-                <v-col  pl-2 v-if="stage==='photo_taken'">
+                <v-col pl-2 v-if="stage==='photo_taken'">
                     <v-img contain width="100%" :height="video_height" :src="url"></v-img>
                 </v-col>
+                <v-col pl-2 v-if="stage==='start'">
+                    <video ref="video" width="100%" :height="video_height" autoplay></video>
+                </v-col>
+
             </v-row>
+
+
         </v-row>
 
 
@@ -92,6 +96,8 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
     data: () => ({
       //Stages
       stage: 'start',
+      //Camera
+      flipBtn: false,
       //Video
       stream: undefined,
       video: undefined,
@@ -125,6 +131,13 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
                   video: true
                 })
                 .then(stream => {
+                  //FlipBtn
+                  let supports = navigator.mediaDevices.getSupportedConstraints();
+                  if (supports['facingMode'] === true) {
+                    this.flipBtn = false;
+                  } else {
+                    this.flipBtn = true;
+                  }
                   //video.src = window.URL.createObjectURL(stream);
                   console.log('Try to do stuff');
                   // if (stream) {

@@ -1,9 +1,9 @@
 <template>
     <v-app>
+        <Video style="height: 100%" @close="take_video=!take_video" v-if="take_video"></Video>
 
-        <v-row justify="space-around" align="start">
+        <v-row justify="space-around" align="start" v-if="!take_video">
             <v-col cols="12">
-                <Video @close="take_video=!take_video" v-if="take_video"></Video>
                 <v-btn v-if="!take_video" @click="take_video=!take_video">foto/video machen</v-btn>
             </v-col>
             <v-col cols="12">

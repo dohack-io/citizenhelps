@@ -79,26 +79,26 @@
       first_buttons: [
         {
           color: 'red',
-          text: 'Hilfe holen',
+          text: 'Hilfe anfragen',
           style: {
-            height: '50%',
+            height: '60%',
           },
           target_stage: 'help'
 
         },
-        {
-          color: 'green',
-          text: 'Erste Hilfe',
-          style: {
-            height: '30%',
-          },
-          target_stage: 'help'
-        },
+        // {
+        //   color: 'green',
+        //   text: 'Erste Hilfe',
+        //   style: {
+        //     height: '30%',
+        //   },
+        //   target_stage: 'help'
+        // },
         {
           color: 'orange',
-          text: 'Bericht erfassen',
+          text: 'Meldung erfassen',
           style: {
-            height: '20%',
+            height: '40%',
           },
           target_stage: 'report'
         },

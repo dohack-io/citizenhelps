@@ -15,10 +15,10 @@ var myicon = L.icon({
 var marker = L.marker([51.50439, 7.52767],{icon:myicon}).addTo(mymap);
 
 var detail_description = document.getElementById("description");
+var detail_minutesago  = document.getElementById("minutesago");
 
 var alerts_container = document.getElementById("alerts_container");
 
-detail_description.innerHTML="hello frontend appp";
 
 function createAlertItem(item){
     var res = document.createElement("div");
@@ -26,7 +26,30 @@ function createAlertItem(item){
 
     var footer  = document.createElement("div");
     footer.className="card-footer";
-    footer.innerHTML=item.minutesago+"";
+
+    var mybtn = document.createElement("button");
+    mybtn.className="btn btn-sm btn-block btn-outline-primary";
+    mybtn.innerHTML="view";
+    mybtn.addEventListener("click",function(){
+        detail_description.innerHTML=item.title;
+        detail_minutesago.innerHTML =item.minutesago+" minutes ago";
+    });
+
+    var footerrow = document.createElement("div");
+    footerrow.className="row";
+
+    var col1=document.createElement("div");
+    col1.className="col-md-6 text-muted";
+    col1.innerHTML=item.minutesago+" minutes ago";
+
+    var col2=document.createElement("div");
+        col2.className="col-md-6";
+        col2.appendChild(mybtn);
+
+    footerrow.appendChild(col1);
+    footerrow.appendChild(col2);
+
+    footer.appendChild(footerrow);
 
     var body = document.createElement("div");
     body.className="card-body";

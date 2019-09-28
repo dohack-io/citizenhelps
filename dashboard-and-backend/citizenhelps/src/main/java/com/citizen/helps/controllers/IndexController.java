@@ -35,7 +35,7 @@ public class IndexController extends VaquitaController {
                                                 h2("Alerts").withClasses("text-center"),
                                                 hr(),
                                                 div(
-                                                    makeAlertCard("Motorcycle Accident",4)
+
                                                 ).withId("alerts_container")
                                         ).withClasses("col-md-3 bg-light").withStyle(""),
                                         div(
@@ -43,7 +43,7 @@ public class IndexController extends VaquitaController {
                                         ).withClasses("col-md-6 p-0 m-0"),
                                         div(makeDetailView()).withClasses("col-md-3 bg-light")
                                 ).withClasses("row")
-                        ),
+                        ).withClasses("container-fluid"),
                         script().withSrc("/js/myleaflet.js")
                 )
         );
@@ -79,22 +79,23 @@ public class IndexController extends VaquitaController {
     }
 
     private static ContainerTag makeDetailView() {
-        ContainerTag details = table(
-                tr(
-                        th(h2("Details"))
-                ),
-                tr(
-                        td("Description").withId("description")
-                ),
-                tr(
-                        td("ReactionTime")
-                ),
-                tr(
-                        td(
-                                img().withSrc("https://via.placeholder.com/320")
-                                        .withStyle("width:100%")
-                                        .withAlt("Image of the accident")
-                        )
+        ContainerTag details = div(
+                div(
+                        h2("Details")
+                ).withClasses("text-center"),
+                hr(),
+                div(
+                        "~"
+                ).withId("description"),
+                div(
+                        "~"
+                ).withId("minutesago"),
+                div(
+
+                    img().withSrc("https://via.placeholder.com/320")
+                            .withStyle("width:100%")
+                            .withAlt("Image of the accident")
+
                 )
 
         ).withStyle("width:100%");

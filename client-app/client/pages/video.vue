@@ -14,21 +14,7 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
 
 
         <v-row column>
-            <v-row align="center" justify="center" wrap>
-                <v-col v-if="stage==='start'">
 
-                    <v-btn @click="(make_photo(),stop_video(),stage='photo_taken')">Make Photo</v-btn>
-                </v-col>
-                <v-col v-if="stage==='photo_taken'">
-                    <v-btn @click="send_picture()">Save&Send</v-btn>
-                    <v-btn @click="(stage='start',stop_video(),go())">New Image</v-btn>
-                </v-col>
-
-                <v-col cols="2" style="text-align: left">
-                    <v-btn @click="close()"> {{flipBtn?'o':'x'}}</v-btn>
-                </v-col>
-
-            </v-row>
             <v-row justify="center" wrap>
                 <v-col pl-2 v-if="stage==='photo_taken'">
                     <v-img contain width="100%" :height="video_height" :src="url"></v-img>
@@ -38,7 +24,22 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
                 </v-col>
 
             </v-row>
+            <v-row align="center" justify="center">
+                <v-col v-if="stage==='start'" cols="10">
 
+                    <v-btn block @click="(make_photo(),stop_video(),stage='photo_taken')">Make Photo</v-btn>
+                </v-col>
+                <v-col v-if="stage==='photo_taken'" cols="10">
+                    <v-btn block @click="send_picture()">Save&Send</v-btn>
+                    <v-btn block @click="(stage='start',stop_video(),go())">New Image</v-btn>
+                </v-col>
+            </v-row>
+            <v-row align="center" justify="end" style="position: absolute;width: 100%" wrap>
+                <v-col cols="3" style="text-align: left">
+                    <v-btn @click="close()"> {{flipBtn?'o':'x'}}</v-btn>
+                </v-col>
+
+            </v-row>
 
         </v-row>
 

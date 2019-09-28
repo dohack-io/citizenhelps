@@ -1,0 +1,19 @@
+# package directories
+package-lock.json
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# Nuxt directories
+.nuxt
+
+# vscode settings
+.vscode
+
+.idea
+
+dist/
+
+serverless_sdk/

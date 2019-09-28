@@ -7,7 +7,7 @@ L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     subdomains: ['a','b','c']
 }).addTo( mymap );
 var myicon = L.icon({
-    iconUrl: 'https://image.flaticon.com/icons/svg/179/179386.svg',
+    iconUrl: 'https://image.flaticon.com/icons/svg/564/564619.svg',
     iconSize: [38, 95],
     iconAnchor: [22, 94],
     popupAnchor: [-3, -76]

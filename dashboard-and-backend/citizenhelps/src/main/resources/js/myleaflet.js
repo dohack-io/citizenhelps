@@ -19,6 +19,8 @@ var detail_minutesago  = document.getElementById("minutesago");
 
 var detail_timestamp  = document.getElementById("timestamp");
 
+var detail_img  = document.getElementById("image");
+
 var alerts_container = document.getElementById("alerts_container");
 
 
@@ -36,6 +38,7 @@ function createAlertItem(item){
         detail_description.innerHTML=item.title;
         detail_minutesago.innerHTML =item.minutesago+" minutes ago";
         detail_timestamp.innerHTML  ="Timestamp: "+item.timestamp+"";
+        detail_img.src=item.imgsrc;
     });
 
     var footerrow = document.createElement("div");
@@ -83,12 +86,15 @@ function pollServerForAlerts(){
                 var item = createAlertItem(alerts[i]);
                 alerts_container.appendChild(item);
             }
+
+            //wait with polling until request completes
+            setTimeout(pollServerForAlerts,2000);
         }
     );
 
 
 
-    setTimeout(pollServerForAlerts,2000);
+
 }
 
-setTimeout(pollServerForAlerts,2000);
+setTimeout(pollServerForAlerts,1000);

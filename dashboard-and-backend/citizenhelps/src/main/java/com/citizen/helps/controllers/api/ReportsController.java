@@ -65,6 +65,7 @@ public class ReportsController extends VaquitaController {
                     obj.put("title", clean(r.get(INCIDENTS.BESCHREIBUNG) + ""));
                     obj.put("timestamp",clean(r.get(INCIDENTS.ZEITSTEMPEL).toString()));
                     obj.put("minutesago", 5 + "");
+                    obj.put("imgsrc","http://localhost:3002/");
                     arr.add(obj);
                     System.out.println(r.get(INCIDENTS.BESCHREIBUNG));
                 }catch (Exception e){

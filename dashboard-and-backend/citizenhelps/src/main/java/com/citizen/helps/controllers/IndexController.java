@@ -97,7 +97,7 @@ public class IndexController extends VaquitaController {
 
                     img().withSrc("https://via.placeholder.com/320")
                             .withStyle("width:100%")
-                            .withAlt("Image of the accident")
+                            .withAlt("Image of the accident").withId("image")
 
                 ),
                 div().withClasses("m-3"),

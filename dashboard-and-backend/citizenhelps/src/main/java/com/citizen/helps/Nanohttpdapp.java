@@ -17,6 +17,8 @@ public class Nanohttpdapp extends NanoHTTPD {
     @Override
     public NanoHTTPD.Response serve(IHTTPSession session){
 
+        //connect to the db to get the images
+
         File file = new File("img.jpg");
         try {
             FileInputStream fis = new FileInputStream(file);

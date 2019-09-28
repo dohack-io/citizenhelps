@@ -33,8 +33,9 @@ public class IndexController extends VaquitaController {
                                         div(
                                                 h2("Alerts").withClasses("text-center"),
                                                 hr(),
-                                                makeAlertCard("Motorcycle Accident",4),
-                                                makeAlertCard("Vandalism",10)
+                                                div(
+                                                    makeAlertCard("Motorcycle Accident",4)
+                                                ).withId("alerts_container")
                                         ).withClasses("col-md-3 min-vh-100 bg-light").withStyle(""),
                                         div(
                                             div().withId("mapid")

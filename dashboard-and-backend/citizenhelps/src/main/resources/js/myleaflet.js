@@ -16,17 +16,37 @@ var marker = L.marker([51.50439, 7.52767],{icon:myicon}).addTo(mymap);
 
 var detail_description = document.getElementById("description");
 
+var alerts_container = document.getElementById("alerts_container");
+
 detail_description.innerHTML="hello frontend appp";
+
+function createAlertItem(item){
+    var res = document.createElement("div");
+    res.innerHTML=item.title;
+    return res;
+}
 
 function pollServerForAlerts(){
     console.log("poll server for new alerts");
 
+
+
     fetch("/api/reports")
         .then(data=>data.json())
         .then(data=>{
-            console.log(data);
+            //console.log(data);
+            var alerts;
+            alerts=data;
+
+            alerts_container.innerHTML="";
+
+            for(var i=0;i<alerts.length;i++){
+                var item = createAlertItem(alerts[i]);
+                alerts_container.appendChild(item);
+            }
         }
     );
+
 
 
     setTimeout(pollServerForAlerts,2000);

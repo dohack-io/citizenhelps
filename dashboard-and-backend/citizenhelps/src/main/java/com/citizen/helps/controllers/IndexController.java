@@ -19,6 +19,7 @@ public class IndexController extends VaquitaController {
         ContainerTag page = html(
                 head(
                         title("CityHelps"),
+                        meta().withName("viewport").withContent("width=device-width, initial-scale=1, shrink-to-fit=no"),
                         link().withRel("stylesheet").withHref("/css/main.css"),
                         link().withRel("stylesheet").withHref("https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"),
                         script().withSrc("https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"),
@@ -26,8 +27,8 @@ public class IndexController extends VaquitaController {
                 ),
                 body(
                         nav(
-                                span("CityHelps").withClasses("navbar-brand")
-                        ).withClasses("navbar", "navbar-light", "bg-light"),
+                                span("CityHelps").withClasses("h1 navbar-brand")
+                        ).withClasses("navbar","navbar-light","bg-light"),
                         main(attrs("#main.content"),
                                 div(
                                         div(
@@ -36,11 +37,11 @@ public class IndexController extends VaquitaController {
                                                 div(
                                                     makeAlertCard("Motorcycle Accident",4)
                                                 ).withId("alerts_container")
-                                        ).withClasses("col-md-3 min-vh-100 bg-light").withStyle(""),
+                                        ).withClasses("col-md-3 bg-light").withStyle(""),
                                         div(
                                             div().withId("mapid")
                                         ).withClasses("col-md-6 p-0 m-0"),
-                                        div(makeDetailView()).withClasses("col-md-3 min-vh-100 bg-light")
+                                        div(makeDetailView()).withClasses("col-md-3 bg-light")
                                 ).withClasses("row")
                         ),
                         script().withSrc("/js/myleaflet.js")

@@ -1,70 +1,16 @@
 <template>
     <v-app>
-        <v-container style="overflow-wrap: anywhere; ">
-            <h1>{{(logged_in?('Hallo '+me.name):view_data.title)}}</h1>
-            <v-card v-if="false">
-                <v-card-title>Dev Area</v-card-title>
-                <v-card-text>
-                    <h3>Dev Area</h3>
-                    card_before:{{card_before}}
-                    <br/>
-                    visited:{{visited}}
-                    <br/>
-                    button:{{button}} <br/>
-                    logged_in:{{logged_in}}
-                    <br/>
-                    {{(button in visited)}}
-                </v-card-text>
+        <v-container fluid>
 
-            </v-card>
-            <v-btn @click="button='my_account'" v-if="logged_in">
-                mein konto
-            </v-btn>
-            <v-btn @click="logged_in=!logged_in" v-if="!logged_in">{{(logged_in?'logout':'login')}}</v-btn>
-            <v-btn @click="button=card_before [card_before.length-2]">zurück</v-btn>
-            <div v-for="(card, idx) in view_data.cards" :key=idx>
+            <v-row no-gutters class="pa-1" :style="button.style" v-for="(button,key) in first_buttons" :key="key" align="stretch">
+                <v-col>
+                    <v-btn :color="button.color"  style="height: 100%" block @click="button='my_account'">
+                        {{button.text}}
+                    </v-btn>
+                </v-col>
 
-                <v-card>
-                    <v-card-title style="overflow-wrap: anywhere;">{{card.subtitle}}</v-card-title>
-                    <v-card v-for="(text1, idx1) in card.texts" :key="idx1">
-                        <v-card-text>
-                            <v-row justify="center">
-                                <v-col v-if="text1.text"> {{text1.text}}
-                                </v-col>
-                                <v-col cols="2" v-if="text1.img">
-                                    <v-img :src="text1.img" contain width="40px"></v-img>
-                                </v-col>
-                                <v-col cols="4" v-if="text1.btn">
-                                    <v-badge overlap>
-                                        <template v-slot:badge>
-                                            <div v-if="false"
-                                                 style="color: #b94810;font-size: 16px;"> !
-                                            </div>
-                                        </template>
-                                        <v-btn @click="button=text1.at" :disabled="!text1.at">
-                                            {{text1.btn}}
-                                        </v-btn>
-                                    </v-badge>
+            </v-row>
 
-                                </v-col>
-                            </v-row>
-                            <v-row v-if="text1.big_img">
-                                <v-col>
-                                    <v-img :src="text1.big_img" contain height="100%"></v-img>
-                                </v-col>
-                            </v-row>
-                            <v-row v-if="text1.map_view">
-                                <v-col>
-                                    <iframe :src="text1.map_view"
-                                            width="400" height="300" frameborder="0" style="border:0;"
-                                            allowfullscreen=""></iframe>
-                                </v-col>
-                            </v-row>
-                        </v-card-text>
-
-                    </v-card>
-                </v-card>
-            </div>
 
         </v-container>
     </v-app>
@@ -98,10 +44,33 @@
   });
 
   export default {
-    components: {
-
-    },
+    components: {},
     data: () => ({
+      first_buttons: [
+        {
+          color: 'red',
+          text: 'Hilfe holen',
+          style: {
+            height: '50%',
+          }
+
+        },
+        {
+          color: 'green',
+          text: 'Erste Hilfe',
+          style: {
+            height: '30%',
+          }
+        },
+        {
+          color: 'orange',
+          text: 'Bericht erfassen',
+          style: {
+            height: '20%',
+          }
+        },
+
+      ],
       me: {
         name: 'Herr Bogomolov'
       },
@@ -162,7 +131,7 @@
         ],
 
       },
-          }),
+    }),
     methods: {
       get_coupon: function () {
 

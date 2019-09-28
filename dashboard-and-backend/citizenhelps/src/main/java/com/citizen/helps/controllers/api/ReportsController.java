@@ -31,8 +31,8 @@ public class ReportsController extends VaquitaController {
 
     @Override
     public VaquitaHTTPResponse handleGET(VaquitaHTTPJustRequest vaquitaHTTPJustRequest, VaquitaApp vaquitaApp) throws Exception {
-
-        ArrayNode nodes = fetchAlerts();
+        String host = vaquitaHTTPJustRequest.getHost();
+        ArrayNode nodes = fetchAlerts(host);
 
         //System.out.println(nodes);
         //System.out.println(nodes.toString().length());
@@ -47,7 +47,7 @@ public class ReportsController extends VaquitaController {
     public static final String password = "7E7Fllxl56";
     public static final String url = "jdbc:mysql://remotemysql.com:3306/27WJWpOHnj";
 
-    public static ArrayNode fetchAlerts()throws Exception{
+    public static ArrayNode fetchAlerts(String host)throws Exception{
 
         ArrayNode arr = mapper.createArrayNode();
 
@@ -63,7 +63,7 @@ public class ReportsController extends VaquitaController {
                     obj.put("title", clean(r.get(INCIDENTS.BESCHREIBUNG) + ""));
                     obj.put("timestamp",clean(r.get(INCIDENTS.ZEITSTEMPEL).toString()));
                     obj.put("minutesago", 5 + "");
-                    obj.put("imgsrc","http://localhost:3002/?id="+r.get(INCIDENTS.ID));
+                    obj.put("imgsrc","http://"+host+":3002/?id="+r.get(INCIDENTS.ID));
                     arr.add(obj);
                     System.out.println(r.get(INCIDENTS.BESCHREIBUNG));
                 }catch (Exception e){

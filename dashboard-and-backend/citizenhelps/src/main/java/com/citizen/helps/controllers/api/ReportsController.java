@@ -1,5 +1,6 @@
 package com.citizen.helps.controllers.api;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -9,6 +10,7 @@ import org.vanautrui.vaquitamvc.requests.VaquitaHTTPEntityEnclosingRequest;
 import org.vanautrui.vaquitamvc.requests.VaquitaHTTPJustRequest;
 import org.vanautrui.vaquitamvc.responses.VaquitaHTTPResponse;
 import org.vanautrui.vaquitamvc.responses.VaquitaJSONResponse;
+import org.vanautrui.vaquitamvc.responses.VaquitaTextResponse;
 
 public class ReportsController extends VaquitaController {
 
@@ -37,6 +39,11 @@ public class ReportsController extends VaquitaController {
 
     @Override
     public VaquitaHTTPResponse handlePOST(VaquitaHTTPEntityEnclosingRequest vaquitaHTTPEntityEnclosingRequest, VaquitaApp vaquitaApp) throws Exception {
-        return null;
+
+        JsonNode new_record = vaquitaHTTPEntityEnclosingRequest.getJsonFromEntity();
+
+        //TODO: handle request
+
+        return new VaquitaTextResponse(200,"ok");
     }
 }

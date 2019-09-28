@@ -53,9 +53,21 @@ public class IndexController extends VaquitaController {
         return div(
                 div(
                     h5(title).withClasses("card-title").withStyle("color:red;"),
-                    p("accident alert").withClasses("card-text")
+
+                    div(p("accident alert"),
+                            p("3 Beteiligte")
+                    ).withClasses("card-text")
                 ).withClasses("card-body"),
-                div(minutesAgo+" minutes Ago").withClasses("card-footer","text-muted")
+                div(
+                    div(
+                        div(
+                            span(minutesAgo+" minutes ago")
+                        ).withClasses("col-md-6"),
+                        div(
+                            button("view >>").withClasses("btn btn-sm btn-outline-primary")
+                        ).withClasses("col-md-6")
+                    ).withClasses("row justify-content-center")
+                ).withClasses("card-footer","text-muted")
         ).withClasses("card","m-2");
     }
 

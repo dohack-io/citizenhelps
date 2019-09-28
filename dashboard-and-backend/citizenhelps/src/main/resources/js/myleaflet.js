@@ -17,3 +17,12 @@ var marker = L.marker([51.50439, 7.52767],{icon:myicon}).addTo(mymap);
 var detail_description = document.getElementById("description");
 
 detail_description.innerHTML="hello frontend appp";
+
+function pollServerForAlerts(){
+    console.log("poll server for new alerts");
+
+
+    setTimeout(pollServerForAlerts,1000);
+}
+
+setTimeout(pollServerForAlerts,1000);

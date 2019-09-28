@@ -15,28 +15,24 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
 
         <v-row column>
             <v-row align="center" justify="center" wrap>
-                <v-col>
-                    <v-btn :disabled="loading" @click="go" v-if="!video_on">Take Picture</v-btn>
-                    <v-btn :disabled="loading" @click="send_picture">Send the picture</v-btn>
-                    <!--                <v-btn :disabled="loading" @click="stop_video" v-if="video_on">Stop Video</v-btn>-->
-                    <v-btn :disabled="loading || !video_on" @click="make_photo">Make Photo</v-btn>
+                <v-col v-if="stage==='start'">
+                    <v-btn @click="(make_photo(),stage='photo_taken')">Make Photo</v-btn>
                 </v-col>
-                <v-col>
-                    <v-btn :disabled="loading || !video_on" @click="make_photo">Bild Speichern</v-btn>
-                    <v-btn :disabled="loading || !video_on" @click="make_photo">Anderen Bild Machen</v-btn>
+                <v-col v-if="stage==='photo_taken'">
+                    <v-btn @click="send_picture()">Save&Send</v-btn>
+                    <v-btn @click="(stage='start',stop_video(),go())">New Image</v-btn>
                 </v-col>
 
                 <v-col>
-                    <v-btn :disabled="loading" @click="close">X</v-btn>
+                    <v-btn @click="close()">X</v-btn>
                 </v-col>
 
             </v-row>
             <v-row justify="center" wrap>
-                <v-col xs4 pl-2>
-
+                <v-col  pl-2 v-if="stage==='start'">
                     <video ref="video" width="100%" :height="video_height" autoplay></video>
                 </v-col>
-                <v-col xs4 pl-2 v-if="url">
+                <v-col  pl-2 v-if="stage==='photo_taken'">
                     <v-img contain width="100%" :height="video_height" :src="url"></v-img>
                 </v-col>
             </v-row>
@@ -94,6 +90,9 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
     name: "Video",
 
     data: () => ({
+      //Stages
+      stage: 'start',
+      //Video
       stream: undefined,
       video: undefined,
       url: undefined,

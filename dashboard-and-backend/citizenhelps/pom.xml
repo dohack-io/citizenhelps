@@ -14,5 +14,18 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.vanautrui</groupId>
+      <artifactId>vaquitapi</artifactId>
+      <version>1.0.4</version>
+    </dependency>
   </dependencies>
+  
+  <repositories>
+  <repository>
+    <id>vanautrui</id>
+    <name>Van Autrui Maven Repository</name>
+    <url>http://maven.vanautrui.org</url>
+  </repository>
+</repositories>
 </project>

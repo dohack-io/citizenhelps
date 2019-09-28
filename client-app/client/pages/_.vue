@@ -20,9 +20,17 @@
                    no-gutters class="pa-1" :style="button.style" v-for="(button,key) in first_buttons" :key="key"
                    align="stretch">
                 <v-col>
-                    <v-btn :color="button.color" x-large style="height: 100%;font-size: 35px" block
+                    <v-btn x-large style="height: 100%;font-size: 35px" block
                            @click="switch_stage(button.target_stage)">
-                        {{button.text}}
+                        <v-card flat style="height: 100%; background: transparent; text-align: center">
+                            <v-icon :color="button.color" style="font-size: 90px;">{{button.icon}}</v-icon>
+
+
+                            <v-row class="pt-3" :color="button.color">
+                                {{button.text}}
+                            </v-row>
+
+                        </v-card>
                     </v-btn>
                 </v-col>
 
@@ -83,6 +91,7 @@
           style: {
             height: '60%',
           },
+          icon: 'fas fa-phone-volume',
           target_stage: 'help'
 
         },
@@ -95,7 +104,8 @@
         //   target_stage: 'help'
         // },
         {
-          color: 'orange',
+          color: 'blue',
+          icon: 'fas fa-file-invoice',
           text: 'Meldung erfassen',
           style: {
             height: '40%',

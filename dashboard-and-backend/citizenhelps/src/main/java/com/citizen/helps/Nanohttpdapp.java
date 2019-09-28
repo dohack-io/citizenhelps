@@ -1,11 +1,22 @@
 package com.citizen.helps;
+import com.citizen.helps.controllers.api.ReportsController;
 import fi.iki.elonen.NanoHTTPD;
+import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Result;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
+import org.jooq.types.UInteger;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.nio.file.Files;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import static com.citizen.helps.controllers.api.ReportsController.userName;
+import static com.citizen.helps.generated.tables.Incidents.INCIDENTS;
 
 public class Nanohttpdapp extends NanoHTTPD {
 
@@ -16,16 +27,25 @@ public class Nanohttpdapp extends NanoHTTPD {
 
     @Override
     public NanoHTTPD.Response serve(IHTTPSession session){
-
-        //connect to the db to get the images
-
-        File file = new File("img.jpg");
         try {
-            FileInputStream fis = new FileInputStream(file);
+            System.out.println(session.getQueryParameterString());
+            String[] params = session.getQueryParameterString().split("&");
+            int id = Integer.parseInt(params[0].split("=")[1]);
+            //connect to the db to get the images
+            Connection conn = DriverManager.getConnection(ReportsController.url, userName, ReportsController.password);
+            DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
+            Record incident = ctx.select(INCIDENTS.BILD).from(INCIDENTS).where(INCIDENTS.ID.eq(UInteger.valueOf(id))).fetchOne();
+
+            byte[] imagebytespng = incident.get(INCIDENTS.BILD);
+
+            InputStream is = new ByteArrayInputStream(imagebytespng);
+            //File file = new File("img.jpg");
+            //FileInputStream fis = new FileInputStream(file);
             //return new Response(Response.Status.OK,"image/png",fis,file.length());
-            return newFixedLengthResponse(Response.Status.OK, "image/jpg", fis, file.length());
-        } catch (IOException e) {
-            e.printStackTrace();
+            //return newFixedLengthResponse(Response.Status.OK, "image/jpg", fis, file.length());
+            return newFixedLengthResponse(Response.Status.OK, "image/jpg", is, imagebytespng.length);
+        }catch (Exception ee){
+            //
         }
         return newFixedLengthResponse("error");
     }

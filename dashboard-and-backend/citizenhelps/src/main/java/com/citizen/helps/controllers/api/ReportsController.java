@@ -43,21 +43,19 @@ public class ReportsController extends VaquitaController {
     public static String clean(String str){
         return str.replaceAll("ä","ae").replaceAll("ö","oe").replaceAll("ü","ue");
     }
+    public static final String userName = "27WJWpOHnj";
+    public static final String password = "7E7Fllxl56";
+    public static final String url = "jdbc:mysql://remotemysql.com:3306/27WJWpOHnj";
 
     public static ArrayNode fetchAlerts()throws Exception{
 
         ArrayNode arr = mapper.createArrayNode();
 
-
-        String userName = "27WJWpOHnj";
-        String password = "7E7Fllxl56";
-        String url = "jdbc:mysql://remotemysql.com:3306/27WJWpOHnj";
-
         // Connection is the only JDBC resource that we need
         // PreparedStatement and ResultSet are handled by jOOQ, internally
         Connection conn = DriverManager.getConnection(url, userName, password);
-            DSLContext ctx = DSL.using(conn,SQLDialect.MYSQL);
-            Result<Record> incidents = ctx.select(INCIDENTS.asterisk()).from(INCIDENTS).fetch();
+        DSLContext ctx = DSL.using(conn,SQLDialect.MYSQL);
+        Result<Record> incidents = ctx.select(INCIDENTS.asterisk()).from(INCIDENTS).fetch();
 
             for(Record r  : incidents){
                 try {
@@ -65,7 +63,7 @@ public class ReportsController extends VaquitaController {
                     obj.put("title", clean(r.get(INCIDENTS.BESCHREIBUNG) + ""));
                     obj.put("timestamp",clean(r.get(INCIDENTS.ZEITSTEMPEL).toString()));
                     obj.put("minutesago", 5 + "");
-                    obj.put("imgsrc","http://localhost:3002/");
+                    obj.put("imgsrc","http://localhost:3002/?id="+r.get(INCIDENTS.ID));
                     arr.add(obj);
                     System.out.println(r.get(INCIDENTS.BESCHREIBUNG));
                 }catch (Exception e){

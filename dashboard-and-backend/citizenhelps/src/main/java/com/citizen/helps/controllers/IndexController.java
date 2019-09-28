@@ -38,7 +38,7 @@ public class IndexController extends VaquitaController {
                                         ).withClasses("col-md-3 min-vh-100 bg-light").withStyle(""),
                                         div(
                                             div().withId("mapid")
-                                        ).withClasses("col-md-6"),
+                                        ).withClasses("col-md-6 p-0 m-0"),
                                         div(makeDetailView()).withClasses("col-md-3 min-vh-100 bg-light")
                                 ).withClasses("row")
                         ),

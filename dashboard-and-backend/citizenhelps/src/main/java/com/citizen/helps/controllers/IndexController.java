@@ -16,6 +16,7 @@ import static j2html.TagCreator.*;
 public class IndexController extends VaquitaController {
     @Override
     public VaquitaHTTPResponse handleGET(VaquitaHTTPJustRequest vaquitaHTTPJustRequest, VaquitaApp vaquitaApp) throws Exception {
+
         ContainerTag page = html(
                 head(
                         title("CityHelps"),
@@ -27,7 +28,8 @@ public class IndexController extends VaquitaController {
                 ),
                 body(
                         nav(
-                                span("CityHelps").withClasses("h1 navbar-brand")
+                                span("CityHelps").withClasses("h1 navbar-brand"),
+                                p("Max Musterman")
                         ).withClasses("navbar","navbar-light","bg-light"),
                         main(attrs("#main.content"),
                                 div(
@@ -96,6 +98,11 @@ public class IndexController extends VaquitaController {
                             .withStyle("width:100%")
                             .withAlt("Image of the accident")
 
+                ),
+                div().withClasses("m-3"),
+
+                div(
+                        button("Wagen losschicken").withClasses("btn btn-block btn-sm btn-outline-primary")
                 )
 
         ).withStyle("width:100%");

@@ -19,6 +19,8 @@ public class IndexController extends VaquitaController {
                 head(
                         title("CityHelps"),
                         link().withRel("stylesheet").withHref("/css/main.css"),
+                        link().withRel("stylesheet").withHref("https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"),
+                        script().withSrc("https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"),
                         link().withRel("stylesheet").withHref("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
                 ),
                 body(
@@ -33,10 +35,13 @@ public class IndexController extends VaquitaController {
                                                 makeAlertCard("Motorcycle Accident",4),
                                                 makeAlertCard("Vandalism",10)
                                         ).withClasses("col-md-3 min-vh-100 bg-light").withStyle(""),
-                                        div("map").withClasses("col-md-6"),
+                                        div(
+                                            div().withId("mapid")
+                                        ).withClasses("col-md-6"),
                                         div("details").withClasses("col-md-3")
                                 ).withClasses("row")
-                        )
+                        ),
+                        script().withSrc("/js/myleaflet.js")
                 )
         );
 

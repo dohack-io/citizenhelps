@@ -9,6 +9,7 @@ import org.vanautrui.vaquitamvc.requests.VaquitaHTTPJustRequest;
 import org.vanautrui.vaquitamvc.responses.VaquitaHTMLResponse;
 import org.vanautrui.vaquitamvc.responses.VaquitaHTTPResponse;
 import org.vanautrui.vaquitamvc.responses.VaquitaTextResponse;
+import sun.reflect.generics.tree.ArrayTypeSignature;
 
 import static j2html.TagCreator.*;
 
@@ -26,7 +27,7 @@ public class IndexController extends VaquitaController {
                 body(
                         nav(
                                 span("CityHelps").withClasses("navbar-brand")
-                        ).withClasses("navbar","navbar-light","bg-light"),
+                        ).withClasses("navbar", "navbar-light", "bg-light"),
                         main(attrs("#main.content"),
                                 div(
                                         div(
@@ -38,14 +39,14 @@ public class IndexController extends VaquitaController {
                                         div(
                                             div().withId("mapid")
                                         ).withClasses("col-md-6"),
-                                        div("details").withClasses("col-md-3")
+                                        div(makeDetailView()).withClasses("col-md-3")
                                 ).withClasses("row")
                         ),
                         script().withSrc("/js/myleaflet.js")
                 )
         );
 
-        return new VaquitaHTMLResponse(200,page.render());
+        return new VaquitaHTMLResponse(200, page.render());
     }
 
     private static ContainerTag makeAlertCard(String title, int minutesAgo){
@@ -62,4 +63,26 @@ public class IndexController extends VaquitaController {
     public VaquitaHTTPResponse handlePOST(VaquitaHTTPEntityEnclosingRequest vaquitaHTTPEntityEnclosingRequest, VaquitaApp vaquitaApp) throws Exception {
         return null;
     }
+
+    private static ContainerTag makeDetailView() {
+        ContainerTag details = table(
+                tr(
+                        th("Details")
+                ),
+                tr(
+                        td("Description")
+                ),
+                tr(
+                        td("ReactionTime")
+                ),
+                tr(
+                        td(
+                                img().withSrc("").withAlt("Image of the accident")
+                        )
+                )
+
+        );
+        return details;
+    }
+
 }

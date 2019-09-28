@@ -21,8 +21,15 @@ detail_description.innerHTML="hello frontend appp";
 function pollServerForAlerts(){
     console.log("poll server for new alerts");
 
+    fetch("/api/reports")
+        .then(data=>data.json())
+        .then(data=>{
+            console.log(data);
+        }
+    );
 
-    setTimeout(pollServerForAlerts,1000);
+
+    setTimeout(pollServerForAlerts,2000);
 }
 
-setTimeout(pollServerForAlerts,1000);
+setTimeout(pollServerForAlerts,2000);

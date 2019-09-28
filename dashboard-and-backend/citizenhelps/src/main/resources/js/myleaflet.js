@@ -22,7 +22,18 @@ detail_description.innerHTML="hello frontend appp";
 
 function createAlertItem(item){
     var res = document.createElement("div");
-    res.innerHTML=item.title;
+    res.className="card m-2";
+
+    var footer  = document.createElement("div");
+    footer.className="card-footer";
+    footer.innerHTML=item.minutesago+"";
+
+    var body = document.createElement("div");
+    body.className="card-body";
+    body.innerHTML=item.title;
+
+    res.appendChild(body);
+    res.appendChild(footer);
     return res;
 }
 

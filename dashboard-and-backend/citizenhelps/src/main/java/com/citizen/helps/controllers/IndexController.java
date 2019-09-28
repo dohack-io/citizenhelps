@@ -86,12 +86,13 @@ public class IndexController extends VaquitaController {
                         h2("Details")
                 ).withClasses("text-center"),
                 hr(),
-                div(
+                h5(
                         "~"
                 ).withId("description"),
                 div(
-                        "~"
-                ).withId("minutesago"),
+                        p("~").withId("minutesago"),
+                        p("~").withId("timestamp")
+                ).withClasses("text-muted"),
                 div(
 
                     img().withSrc("https://via.placeholder.com/320")

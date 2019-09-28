@@ -40,6 +40,10 @@ public class ReportsController extends VaquitaController {
         return new VaquitaJSONResponse(200,nodes);
     }
 
+    public static String clean(String str){
+        return str.replaceAll("ä","ae").replaceAll("ö","oe").replaceAll("ü","ue");
+    }
+
     public static ArrayNode fetchAlerts()throws Exception{
 
         ArrayNode arr = mapper.createArrayNode();
@@ -58,7 +62,8 @@ public class ReportsController extends VaquitaController {
             for(Record r  : incidents){
                 try {
                     ObjectNode obj = mapper.createObjectNode();
-                    obj.put("title", r.get(INCIDENTS.BESCHREIBUNG).replaceAll("ä","ae").replaceAll("ö","oe").replaceAll("ü","ue") + "");
+                    obj.put("title", clean(r.get(INCIDENTS.BESCHREIBUNG) + ""));
+                    obj.put("timestamp",clean(r.get(INCIDENTS.ZEITSTEMPEL).toString()));
                     obj.put("minutesago", 5 + "");
                     arr.add(obj);
                     System.out.println(r.get(INCIDENTS.BESCHREIBUNG));

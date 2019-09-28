@@ -17,6 +17,8 @@ var marker = L.marker([51.50439, 7.52767],{icon:myicon}).addTo(mymap);
 var detail_description = document.getElementById("description");
 var detail_minutesago  = document.getElementById("minutesago");
 
+var detail_timestamp  = document.getElementById("timestamp");
+
 var alerts_container = document.getElementById("alerts_container");
 
 
@@ -33,6 +35,7 @@ function createAlertItem(item){
     mybtn.addEventListener("click",function(){
         detail_description.innerHTML=item.title;
         detail_minutesago.innerHTML =item.minutesago+" minutes ago";
+        detail_timestamp.innerHTML  ="Timestamp: "+item.timestamp+"";
     });
 
     var footerrow = document.createElement("div");
@@ -50,6 +53,8 @@ function createAlertItem(item){
     footerrow.appendChild(col2);
 
     footer.appendChild(footerrow);
+
+    //item.timestamp
 
     var body = document.createElement("div");
     body.className="card-body";

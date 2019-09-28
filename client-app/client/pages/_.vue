@@ -3,8 +3,8 @@
 
         <v-container fluid>
             <v-row v-if="stage!='start'">
-                <v-btn @click="stage='start'" block small> Stage: {{stage}}
-                </v-btn>
+                <v-btn @click="stage='start'" block>         Stage:   {{stage}}
+</v-btn>
             </v-row>
             <v-row v-if="loading" align="center" justify="center" style="height:100%;">
                 <v-col style="height: 200px;text-align: center">

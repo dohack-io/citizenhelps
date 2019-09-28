@@ -8,7 +8,7 @@
                 <v-card color="red" x-large style="height: 100%;font-size: 35px" block>
                     <v-row justify="center" align="center" style="height: 100%;">
                         <v-col style="height: 100px;text-align: center">
-                            <v-icon>call</v-icon>
+                            <v-icon style="font-size: 60px">call</v-icon>
                             {{points}}
                         </v-col>
                     </v-row>

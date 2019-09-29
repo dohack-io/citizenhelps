@@ -29,6 +29,12 @@ var detail_img  = document.getElementById("image");
 
 var alerts_container = document.getElementById("alerts_container");
 
+var car_button  = document.getElementById("carbutton");
+car_button.addEventListener("click",function(){
+    car_button.innerHTML="Car sent to Location!";
+    car_button.className="btn btn-block btn-success btn-sm";
+    car_button.setAttribute("disabled","true");
+});
 
 
 function createAlertItem(item){
@@ -49,9 +55,14 @@ function createAlertItem(item){
         detail_timeagostring.innerHTML =item.timeagostring;
         detail_timestamp.innerHTML  ="Timestamp: "+item.timestamp+"";
         detail_img.src=item.imgsrc;
+
+        car_button.innerHTML="Wagen schicken";
+        car_button.className="btn btn-block btn-outline-primary btn-sm";
+        car_button.removeAttribute("disabled");
+
         mymap.setView([item.latitude, item.longitude], 14);
 
-        //TODO: set all others to have small icon
+        //set all others to have small icon
         mymap.eachLayer(function(lyr){
             if(lyr instanceof L.Marker){
                 lyr.setIcon(myicon);

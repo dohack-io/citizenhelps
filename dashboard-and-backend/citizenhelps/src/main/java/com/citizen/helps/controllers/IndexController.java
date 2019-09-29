@@ -103,7 +103,9 @@ public class IndexController extends VaquitaController {
                 div().withClasses("m-3"),
 
                 div(
-                        button("Wagen losschicken").withClasses("btn btn-block btn-sm btn-outline-primary")
+                        button("~")
+                                .withClasses("btn btn-block btn-sm btn-outline-primary")
+                                .withId("carbutton")
                 )
 
         ).withStyle("width:100%");

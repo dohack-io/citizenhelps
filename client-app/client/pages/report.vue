@@ -167,8 +167,8 @@
       send_form: function () {
         // let dateObj = new Date(unixTimestamp * 1000);
         // let utcString = dateObj.toUTCString();
-        let time = Math.round(Date.now() / 1000);
-        console.log('Time:', Math.round(Date.now() / 1000));
+        let time = Math.round(Date.now() );
+        console.log('Time:', Math.round(Date.now()));
         console.log('Image as String:', this.img_url);
 
         try {
@@ -179,7 +179,7 @@
             bild: this.img_url,
             beschreibung: this.textfield_text || "Beschreibung " + time,
             did_send_personal_data: true,
-            zeitstempel: 1
+            zeitstempel: time
           });
           console.log('r', data);
           console.log(JSON.stringify(data)); // JSON-string from `response.json()` call

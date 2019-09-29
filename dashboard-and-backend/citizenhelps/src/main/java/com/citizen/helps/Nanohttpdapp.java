@@ -43,7 +43,9 @@ public class Nanohttpdapp extends NanoHTTPD {
             //FileInputStream fis = new FileInputStream(file);
             //return new Response(Response.Status.OK,"image/png",fis,file.length());
             //return newFixedLengthResponse(Response.Status.OK, "image/jpg", fis, file.length());
-            return newFixedLengthResponse(Response.Status.OK, "image/png", is, imagebytespng.length);
+            Response res =  newFixedLengthResponse(Response.Status.OK, "image/png", is, imagebytespng.length);
+            res.addHeader("Access-Control-Allow-Origin", "*");
+            return res;
         }catch (Exception ee){
             //
             ee.printStackTrace();

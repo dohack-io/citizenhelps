@@ -30,7 +30,7 @@ public class Nanohttpdapp extends NanoHTTPD {
         try(Connection conn = DriverManager.getConnection(ReportsController.url, userName, ReportsController.password);) {
             System.out.println(session.getQueryParameterString());
             String[] params = session.getQueryParameterString().split("&");
-            int id = Integer.parseInt(params[0].split("=")[1]);
+            long id = Long.parseLong(params[0].split("=")[1]);
             //connect to the db to get the images
 
             DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);

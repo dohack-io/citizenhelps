@@ -174,9 +174,20 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
       send_picture: function (file) {
         let data = new FormData();
         data.append('file', file, file.fileName);
+        let payload = {
+          "art": "personalschaden",
+          "lat": 51.002,
+          "lon": 8.023,
+          "img": data,
+          "beschreibung": "Test Nummer 1",
+          "did_send_personal_data": true,
+          "zeitstempel": 1569726392
+        };
+
         axios
-            .post("http://127.0.0.1:4000/",
-                data,
+            .post(
+                "http://134.209.232.135:3001/api/reports",
+                payload,
                 {
                   headers: {
                     'accept': 'application/json',
@@ -194,7 +205,7 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
 
               var errorCode = error.code;
               var errorMessage = error.message;
-              console.log(errorCode, errorMessage);
+              console.log('Error', errorCode, errorMessage);
               // ...
             });
       },

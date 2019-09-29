@@ -41,7 +41,6 @@
 </template>
 
 <script>
-  import axios from "axios";
   import Vue from "vue";
   import Help from "./help.vue";
   import Report from "./report.vue";
@@ -61,6 +60,7 @@
   // }
 
   // import {icon} from "leaflet";
+  import axios from "axios";
 
   axios.defaults.headers.post = {
     // 'Access-Control-Allow-Origin': "*",

@@ -63,6 +63,14 @@
 <script>
   import {mdiFormatClear, mdiCallMade} from '@mdi/js';
   import Geolocation from "./geolocation.vue";
+  import axios from "axios";
+
+  axios.defaults.headers.post = {
+    // 'Access-Control-Allow-Origin': "*",
+    'Access-Control-Allow-Credentials': 'true',
+    'Content-Type': 'application/json',
+  };
+  axios.defaults.method = 'post';
 
 
   function sleep(s) {
@@ -76,6 +84,7 @@
 
     },
     data: () => ({
+      host: "",
       loading: false,
       green_visible: false,
       get_geolocation: false,
@@ -93,7 +102,7 @@
         console.log('got coords', this.coords);
         this.loading = false;
         await sleep(0.4);
-        this.green_visible=true;
+        this.green_visible = true;
 
       },
       close: function () {
@@ -115,7 +124,34 @@
     },
     mounted() {
       this.running_points();
-
+      this.host = location.origin;
+      console.log('Host:', this.host);
+      console.log('Url:', this.host + '/api/hackathons');
+      let data = {
+        test:'test',
+        complex:'dkfj'
+      };
+      axios
+          .post(this.host + '/api/hackathons',
+              data,
+              {
+                headers: {
+                  'accept': 'text/json',
+                  'Accept-Language': 'en-US,en;q=0.8',
+                  'Content-Type': `text/json`,
+                }
+              })
+          .then(res => {
+            console.log('res.data', res.data);
+          })
+          .catch(res => {
+                console.log('err ', res);
+              }
+          )
+          .finally(res => {
+            this.loading = false;
+            console.log('loading', this.loading);
+          });
 
     }
   }

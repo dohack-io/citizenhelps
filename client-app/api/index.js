@@ -5,7 +5,11 @@ const bodyParser = require('body-parser');
 // Create express instnace
 const app = express();
 
-app.use(bodyParser.json({type: '*/*'}));
+
+//Increasing size for transactions
+app.use(bodyParser.json({type: '*/*',limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 
 
 // Require API routes

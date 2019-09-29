@@ -38,9 +38,7 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
                 <v-col cols="3" style="text-align: left">
                     <v-btn @click="close()"> {{flipBtn?'o':'x'}}</v-btn>
                 </v-col>
-
             </v-row>
-
         </v-row>
 
 
@@ -177,20 +175,21 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
         }
         let data = new FormData();
         data.append('file', file, file.fileName);
-        console.log(data);
+        console.log('data',data);
         let payload = {
           "art": "personalschaden",
           "lat": 51.002,
           "lon": 8.023,
-          "img": data,
+          "img": this.url,
           "beschreibung": "Test Nummer 1",
           "did_send_personal_data": true,
           "zeitstempel": 1569726392
         };
-
+// "http://134.209.232.135:3001/api/reports",
         axios
             .post(
-                "http://134.209.232.135:3001/api/reports",
+
+                "http://localhost:3000/api/hackathons",
                 payload,
                 {
                   headers: {

@@ -118,6 +118,7 @@ public class ReportsController extends VaquitaController {
                     ).execute();
         }catch (Exception e){
             e.printStackTrace();
+            return new VaquitaTextResponse(500,e.toString());
         }
 
         //String s = r.toString();

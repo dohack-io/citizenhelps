@@ -1,10 +1,10 @@
 <template>
     <v-app>
 
-        <v-container fluid>
+        <v-container>
             <v-row v-if="stage!='start'">
-                <v-btn @click="stage='start'" block>         Stage:   {{stage}}
-</v-btn>
+                <v-btn @click="stage='start'" block> Stage: {{stage}}
+                </v-btn>
             </v-row>
             <v-row v-if="loading" align="center" justify="center" style="height:100%;">
                 <v-col style="height: 200px;text-align: center">
@@ -20,9 +20,17 @@
                    no-gutters class="pa-1" :style="button.style" v-for="(button,key) in first_buttons" :key="key"
                    align="stretch">
                 <v-col>
-                    <v-btn :color="button.color" x-large style="height: 100%;font-size: 35px" block
+                    <v-btn x-large style="height: 100%;font-size: 35px" block
                            @click="switch_stage(button.target_stage)">
-                        {{button.text}}
+                        <v-card flat style="height: 100%; background: transparent; text-align: center">
+                            <v-icon :color="button.color" style="font-size: 90px;">{{button.icon}}</v-icon>
+
+
+                            <v-row class="pt-3" :color="button.color">
+                                {{button.text}}
+                            </v-row>
+
+                        </v-card>
                     </v-btn>
                 </v-col>
 
@@ -79,26 +87,28 @@
       first_buttons: [
         {
           color: 'red',
-          text: 'Hilfe holen',
+          text: 'Hilfe anfragen',
           style: {
-            height: '50%',
+            height: '60%',
           },
+          icon: 'fas fa-phone-volume',
           target_stage: 'help'
 
         },
+        // {
+        //   color: 'green',
+        //   text: 'Erste Hilfe',
+        //   style: {
+        //     height: '30%',
+        //   },
+        //   target_stage: 'help'
+        // },
         {
-          color: 'green',
-          text: 'Erste Hilfe',
+          color: 'blue',
+          icon: 'fas fa-file-invoice',
+          text: 'Meldung erfassen',
           style: {
-            height: '30%',
-          },
-          target_stage: 'help'
-        },
-        {
-          color: 'orange',
-          text: 'Bericht erfassen',
-          style: {
-            height: '20%',
+            height: '40%',
           },
           target_stage: 'report'
         },
@@ -115,7 +125,6 @@
     }),
     methods: {
       get_coupon: function () {
-
       },
       switch_stage: async function (stage_name) {
         this.loading = true;

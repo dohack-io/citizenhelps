@@ -9,10 +9,10 @@ L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var myicon = L.icon({
     iconUrl: 'https://image.flaticon.com/icons/svg/564/564619.svg',
     iconSize: [38, 95],
-    iconAnchor: [22, 94],
-    popupAnchor: [-3, -76]
+    iconAnchor: [0, -175],
+    popupAnchor: [0, 0]
 });
-var marker = L.marker([51.50439, 7.52767],{icon:myicon}).addTo(mymap);
+//var marker = L.marker([51.50439, 7.52767],{icon:myicon}).addTo(mymap);
 
 var detail_description = document.getElementById("description");
 var detail_minutesago  = document.getElementById("minutesago");
@@ -39,6 +39,7 @@ function createAlertItem(item){
         detail_minutesago.innerHTML =item.minutesago+" minutes ago";
         detail_timestamp.innerHTML  ="Timestamp: "+item.timestamp+"";
         detail_img.src=item.imgsrc;
+        mymap.setView([item.latitude, item.longitude], 14);
     });
 
     var footerrow = document.createElement("div");
@@ -65,6 +66,9 @@ function createAlertItem(item){
 
     res.appendChild(body);
     res.appendChild(footer);
+
+    L.marker([item.latitude, item.longitude],{icon:myicon}).addTo(mymap);
+
     return res;
 }
 

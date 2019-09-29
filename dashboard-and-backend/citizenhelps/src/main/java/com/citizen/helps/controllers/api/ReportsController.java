@@ -53,25 +53,30 @@ public class ReportsController extends VaquitaController {
 
         // Connection is the only JDBC resource that we need
         // PreparedStatement and ResultSet are handled by jOOQ, internally
-        Connection conn = DriverManager.getConnection(url, userName, password);
-        DSLContext ctx = DSL.using(conn,SQLDialect.MYSQL);
-        Result<Record> incidents = ctx.select(INCIDENTS.asterisk()).from(INCIDENTS).fetch();
+        try(Connection conn = DriverManager.getConnection(url, userName, password);) {
+            DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
+            Result<Record> incidents = ctx.select(INCIDENTS.asterisk()).from(INCIDENTS).fetch();
 
-            for(Record r  : incidents){
+            for (Record r : incidents) {
                 try {
                     ObjectNode obj = mapper.createObjectNode();
                     obj.put("title", clean(r.get(INCIDENTS.BESCHREIBUNG) + ""));
-                    obj.put("timestamp",clean(r.get(INCIDENTS.ZEITSTEMPEL).toString()));
+                    obj.put("timestamp", clean(r.get(INCIDENTS.ZEITSTEMPEL).toString()));
                     obj.put("minutesago", 5 + "");
-                    obj.put("imgsrc","http://"+host+":3002/?id="+r.get(INCIDENTS.ID));
+                    obj.put("imgsrc", "http://" + host + ":3002/?id=" + r.get(INCIDENTS.ID));
+
+                    obj.put("longitude", r.get(INCIDENTS.LON));
+                    obj.put("latitude", r.get(INCIDENTS.LAT));
+
                     arr.add(obj);
                     System.out.println(r.get(INCIDENTS.BESCHREIBUNG));
-                }catch (Exception e){
+                } catch (Exception e) {
                     //pass
                 }
 
             }
-        conn.close();
+        }
+
 
         return arr;
     }

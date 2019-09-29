@@ -90,7 +90,7 @@ public class IndexController extends VaquitaController {
                         "~"
                 ).withId("description"),
                 div(
-                        p("~").withId("minutesago"),
+                        p("~").withId("timeagostring"),
                         p("~").withId("timestamp")
                 ).withClasses("text-muted"),
                 div(

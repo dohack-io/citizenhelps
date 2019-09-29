@@ -7,6 +7,14 @@
   <version>1.0-SNAPSHOT</version>
   <build>
     <plugins>
+          <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>exec-maven-plugin</artifactId>
+              <configuration>
+                  <mainClass>com.citizen.helps.App</mainClass>
+              </configuration>
+              <version>1.6.0</version>
+          </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -30,6 +38,24 @@
                 </archive>
             </configuration>
         </plugin>
+	<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>target/generated-sources/</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
     </plugins>
   </build>
   <name>citizenhelps</name>

@@ -43,7 +43,7 @@ public class Nanohttpdapp extends NanoHTTPD {
             //FileInputStream fis = new FileInputStream(file);
             //return new Response(Response.Status.OK,"image/png",fis,file.length());
             //return newFixedLengthResponse(Response.Status.OK, "image/jpg", fis, file.length());
-            return newFixedLengthResponse(Response.Status.OK, "image/jpg", is, imagebytespng.length);
+            return newFixedLengthResponse(Response.Status.OK, "image/png", is, imagebytespng.length);
         }catch (Exception ee){
             //
             ee.printStackTrace();

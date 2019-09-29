@@ -20,6 +20,7 @@ import org.vanautrui.vaquitamvc.responses.VaquitaTextResponse;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Date;
@@ -97,9 +98,26 @@ public class ReportsController extends VaquitaController {
     @Override
     public VaquitaHTTPResponse handlePOST(VaquitaHTTPEntityEnclosingRequest vaquitaHTTPEntityEnclosingRequest, VaquitaApp vaquitaApp) throws Exception {
 
-        JsonNode new_record = vaquitaHTTPEntityEnclosingRequest.getJsonFromEntity();
+        JsonNode r = vaquitaHTTPEntityEnclosingRequest.getJsonFromEntity();
 
         //TODO: handle request
+        try(Connection conn = DriverManager.getConnection(url, userName, password)){
+            DSLContext ctx = DSL.using(conn,SQLDialect.MYSQL);
+            ctx.insertInto(INCIDENTS).columns(
+                    INCIDENTS.ART,INCIDENTS.BESCHREIBUNG,
+                    INCIDENTS.BILD,INCIDENTS.LAT,INCIDENTS.LON,
+                    INCIDENTS.WEITERE_INFOS,INCIDENTS.ZEITSTEMPEL)
+                    .values(
+                            r.get("art").asText(),r.get("beschreibung").asText(),
+                            r.get("bild").binaryValue(),r.get("lat").asDouble(),r.get("lon").asDouble(),
+                            "",new Timestamp(r.get("zeitstempel").asInt())
+                    ).execute();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        //String s = r.toString();
+        //System.out.println(s);
 
         return new VaquitaTextResponse(200,"ok");
     }

@@ -15,7 +15,7 @@ var myicon = L.icon({
 var marker = L.marker([51.50439, 7.52767],{icon:myicon}).addTo(mymap);
 
 var detail_description = document.getElementById("description");
-var detail_minutesago  = document.getElementById("minutesago");
+var detail_timeagostring  = document.getElementById("timeagostring");
 
 var detail_timestamp  = document.getElementById("timestamp");
 
@@ -36,7 +36,7 @@ function createAlertItem(item){
     mybtn.innerHTML="view";
     mybtn.addEventListener("click",function(){
         detail_description.innerHTML=item.title;
-        detail_minutesago.innerHTML =item.minutesago+" minutes ago";
+        detail_timeagostring.innerHTML =item.timeagostring;
         detail_timestamp.innerHTML  ="Timestamp: "+item.timestamp+"";
         detail_img.src=item.imgsrc;
     });
@@ -46,7 +46,7 @@ function createAlertItem(item){
 
     var col1=document.createElement("div");
     col1.className="col-md-6 text-muted";
-    col1.innerHTML=item.minutesago+" minutes ago";
+    col1.innerHTML=item.timeagostring;
 
     var col2=document.createElement("div");
         col2.className="col-md-6";

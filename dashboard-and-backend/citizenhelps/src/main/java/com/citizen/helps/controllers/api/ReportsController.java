@@ -20,6 +20,9 @@ import org.vanautrui.vaquitamvc.responses.VaquitaTextResponse;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -60,9 +63,24 @@ public class ReportsController extends VaquitaController {
             for(Record r  : incidents){
                 try {
                     ObjectNode obj = mapper.createObjectNode();
+
+                    Date date = r.get(INCIDENTS.ZEITSTEMPEL);
+                    Duration elapsed = Duration.between(date.toInstant(),Instant.now());
+                    String timeagostring = "error";
+
+                    if(elapsed.toDays()>0){
+                        timeagostring=elapsed.toDays()+" days ago";
+                    }else if(elapsed.toHours()>0){
+                        timeagostring=elapsed.toHours()+" hours ago";
+                    }else if(elapsed.toMinutes()>0){
+                        timeagostring=elapsed.toMinutes()+" minutes ago";
+                    }else{
+                        timeagostring=elapsed.getSeconds()+" seconds ago";
+                    }
+
                     obj.put("title", clean(r.get(INCIDENTS.BESCHREIBUNG) + ""));
                     obj.put("timestamp",clean(r.get(INCIDENTS.ZEITSTEMPEL).toString()));
-                    obj.put("minutesago", 5 + "");
+                    obj.put("timeagostring", timeagostring);
                     obj.put("imgsrc","http://"+host+":3002/?id="+r.get(INCIDENTS.ID));
                     arr.add(obj);
                     System.out.println(r.get(INCIDENTS.BESCHREIBUNG));

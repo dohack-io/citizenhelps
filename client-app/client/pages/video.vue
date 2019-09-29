@@ -170,47 +170,52 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
       },
       // Sends picture to the local server
       send_picture: function (file) {
-        if(!file){
-          file = this.photo;
-        }
-        let data = new FormData();
-        data.append('file', file, file.fileName);
-        console.log('data',data);
-        let payload = {
-          "art": "personalschaden",
-          "lat": 51.002,
-          "lon": 8.023,
-          "img": this.url,
-          "beschreibung": "Test Nummer 1",
-          "did_send_personal_data": true,
-          "zeitstempel": 1569726392
-        };
-// "http://134.209.232.135:3001/api/reports",
-        axios
-            .post(
-
-                "http://localhost:3000/api/hackathons",
-                payload,
-                {
-                  headers: {
-                    'accept': 'application/json',
-                    'Accept-Language': 'en-US,en;q=0.8',
-                    'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-                  }
-                })
-            .then(response => {
-              console.log("Axios:", response);
-              this.loading = false;
-            })
-            .catch(error => {
-              // Handle Errors here.
-              this.loading = false;
-
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              console.log('Error', errorCode, errorMessage);
-              // ...
-            });
+        this.$emit('photo_url',this.url);
+        this.close();
+//         if(!file){
+//           file = this.photo;
+//         }
+//         let data = new FormData();
+//         data.append('file', file, file.fileName);
+//         console.log('data',data);
+//         let payload = {
+//           "art": "personalschaden",
+//           "lat": 51.002,
+//           "lon": 8.023,
+//           "img": this.url,
+//           "beschreibung": "Test Nummer 1",
+//           "did_send_personal_data": true,
+//           "zeitstempel": 1569726392
+//         };
+// // "http://134.209.232.135:3001/api/reports",
+//         axios
+//             .post(
+//
+//                 "http://localhost:3000/api/hackathons",
+//                 payload,
+//                 {
+//                   headers: {
+//                     'accept': 'application/json',
+//                     'Accept-Language': 'en-US,en;q=0.8',
+//                     'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+//                   }
+//                 })
+//             .then(response => {
+//               console.log("Axios:", response);
+//               this.$emit('photo_sent');
+//               this.photo_sent = true;
+//               this.loading = false;
+//               this.close();
+//             })
+//             .catch(error => {
+//               // Handle Errors here.
+//               this.loading = false;
+//
+//               var errorCode = error.code;
+//               var errorMessage = error.message;
+//               console.log('Error', errorCode, errorMessage);
+//               // ...
+//             });
       },
       //Making Photo
       make_photo: async function () {

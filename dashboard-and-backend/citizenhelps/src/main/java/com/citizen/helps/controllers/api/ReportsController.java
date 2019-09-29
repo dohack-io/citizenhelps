@@ -124,7 +124,7 @@ public class ReportsController extends VaquitaController {
                     .values(UInteger.valueOf(myrandomid),
                             r.get("art").asText(),r.get("beschreibung").asText(),
                             img_bytes,r.get("lat").asDouble(),r.get("lon").asDouble(),
-                            "",new Timestamp(r.get("zeitstempel").asInt())
+                            "",new Timestamp(r.get("zeitstempel").asLong())
                     ).execute();
         }catch (Exception e){
             e.printStackTrace();

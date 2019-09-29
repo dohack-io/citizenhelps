@@ -23,9 +23,6 @@
       console.log('geolocation');
 
       // this.running_points();
-      var lat = 0;
-      var lng = 0;
-
 
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(this.showPosition);

@@ -1,16 +1,16 @@
 <template>
     <v-app>
-        <v-row no-gutters class="pa-1" style="height: 90%;"
-               align="stretch">
-            <v-col>
-                <v-card x-large style="height: 100%;font-size: 90px" block>
-                    <v-row justify="center" align="center" style="height: 50%;">
+        <div>
+            <v-row no-gutters style="height: 100vh;"
+                   align="stretch">
+                <v-card style="height: 100vh;font-size: 90px" block>
+                    <v-row justify="center" align="center" style="height: 40%;">
                         <v-col style="height: 100px;text-align: center">
                             <v-col cols="12">
                                 <v-icon style="font-size: 90px; color: black">call</v-icon>
 
                             </v-col>
-                            <v-col cols="12">
+                            <v-col cols="12" style="margin-top: -100px">
                                 {{points}}
 
                             </v-col>
@@ -19,27 +19,43 @@
                     <v-row justify="center" align="center" style="height: 10%;">
 
                     </v-row>
-                    <v-row justify="center" align="start" style="height: 10%;" wrap>
+                    <v-row justify="center" align="center" style="height: 10%;">
+                        <v-col cols="10" v-if="coords" style="font-size: 15px;text-align: center">
+                            (lat: {{Math.round(coords.lat * 10000) /10000 }},lng:
+                            {{Math.round(coords.lng * 10000) /10000 }})
+                            <v-icon v-if="green_visible" x-small color="green">far fa-check-circle</v-icon>
+                        </v-col>
                         <v-col cols="10">
-                            <v-btn :disabled="disabled0" @click="(disabled0=true,get_geolocation=true)" large block>standort
+
+
+                            <v-btn :loading="loading" :disabled="disabled0"
+                                   @click="(disabled0=true,get_geolocation=true)" large block>
+                                standort
                                 senden
+                                <v-icon class="pl-2" small color="blue" v-if="disabled0">far fa-compass</v-icon>
                             </v-btn>
                         </v-col>
-                        <v-col cols="10">
+                        <v-col cols="10" style="text-align: center">
                             <v-btn :disabled="disabled1" @click="disabled1=true" large block>persönliche daten senden
+                                <v-icon class="pl-2" v-if="disabled1" small color="blue">far fa-user</v-icon>
+
                             </v-btn>
+                            <v-btn fab>
+                                <v-icon color="red" @click="close()">fas fa-phone-slash</v-icon>
+                            </v-btn>
+
                         </v-col>
-                        <v-col cols="10" v-if="coords">
-                            ( {{Math.round(coords.lat * 1000) /1000 }},
-                            {{Math.round(coords.lng * 1000) /1000 }})
-                        </v-col>
+
+
                     </v-row>
 
 
                 </v-card>
-            </v-col>
-            <Geolocation :coords="(got_coords)" v-if="get_geolocation"></Geolocation>
-        </v-row>
+            </v-row>
+
+            <Geolocation @coords="got_coords" v-if="get_geolocation"></Geolocation>
+        </div>
+
     </v-app>
 
 </template>
@@ -60,6 +76,8 @@
 
     },
     data: () => ({
+      loading: false,
+      green_visible: false,
       get_geolocation: false,
       coords: undefined,
       points: ".",
@@ -68,9 +86,15 @@
       disabled0: false,
     }),
     methods: {
-      got_coords: function (val) {
-        console.log('got coords',val);
+      got_coords: async function (val) {
+        this.loading = true;
+        await sleep(0.9);
         this.coords = val;
+        console.log('got coords', this.coords);
+        this.loading = false;
+        await sleep(0.4);
+        this.green_visible=true;
+
       },
       close: function () {
         this.$emit('close');

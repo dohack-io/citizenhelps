@@ -84,8 +84,8 @@ module.exports = {
     host: "0.0.0.0", // default: localhost,
     timing: false
   }
-  // ,serverMiddleware: [
-  //   // API middleware
-  //   './api/index.js'
-  // ]
+  ,serverMiddleware: [
+    // API middleware
+    './api/index.js'
+  ]
 }

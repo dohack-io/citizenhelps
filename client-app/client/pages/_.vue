@@ -2,22 +2,18 @@
     <v-app>
 
         <v-container>
-            <v-row v-if="stage!='start'">
-                <v-btn @click="stage='start'" block> Stage: {{stage}}
-                </v-btn>
-            </v-row>
             <v-row v-if="loading" align="center" justify="center" style="height:100%;">
                 <v-col style="height: 200px;text-align: center">
                     <v-progress-circular
                             :size="70"
                             :width="7"
-                            color="purple"
+                            color="blue"
                             indeterminate
                     ></v-progress-circular>
                 </v-col>
             </v-row>
             <v-row v-if="stage==='start'"
-                   no-gutters class="pa-1" :style="button.style" v-for="(button,key) in first_buttons" :key="key"
+                   no-gutters :style="button.style" v-for="(button,key) in first_buttons" :key="key"
                    align="stretch">
                 <v-col>
                     <v-btn x-large style="height: 100%;font-size: 35px" block

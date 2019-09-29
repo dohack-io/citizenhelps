@@ -27,12 +27,12 @@ public class Nanohttpdapp extends NanoHTTPD {
 
     @Override
     public NanoHTTPD.Response serve(IHTTPSession session){
-        try {
+        try(Connection conn = DriverManager.getConnection(ReportsController.url, userName, ReportsController.password);) {
             System.out.println(session.getQueryParameterString());
             String[] params = session.getQueryParameterString().split("&");
             int id = Integer.parseInt(params[0].split("=")[1]);
             //connect to the db to get the images
-            Connection conn = DriverManager.getConnection(ReportsController.url, userName, ReportsController.password);
+
             DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
             Record incident = ctx.select(INCIDENTS.BILD).from(INCIDENTS).where(INCIDENTS.ID.eq(UInteger.valueOf(id))).fetchOne();
 

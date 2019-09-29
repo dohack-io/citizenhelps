@@ -31,7 +31,7 @@ import java.util.Optional;
 
 public class ReportsController extends VaquitaController {
 
-    public static ObjectMapper mapper=new ObjectMapper();
+    public static ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public VaquitaHTTPResponse handleGET(VaquitaHTTPJustRequest vaquitaHTTPJustRequest, VaquitaApp vaquitaApp) throws Exception {
@@ -41,56 +41,60 @@ public class ReportsController extends VaquitaController {
         //System.out.println(nodes);
         //System.out.println(nodes.toString().length());
 
-        return new VaquitaJSONResponse(200,nodes);
+        return new VaquitaJSONResponse(200, nodes);
     }
 
-    public static String clean(String str){
-        return str.replaceAll("ä","ae").replaceAll("ö","oe").replaceAll("ü","ue");
+    public static String clean(String str) {
+        return str.replaceAll("ä", "ae").replaceAll("ö", "oe").replaceAll("ü", "ue");
     }
+
     public static final String userName = "27WJWpOHnj";
     public static final String password = "7E7Fllxl56";
     public static final String url = "jdbc:mysql://remotemysql.com:3306/27WJWpOHnj";
 
-    public static ArrayNode fetchAlerts(String host)throws Exception{
+    public static ArrayNode fetchAlerts(String host) throws Exception {
 
         ArrayNode arr = mapper.createArrayNode();
 
         // Connection is the only JDBC resource that we need
         // PreparedStatement and ResultSet are handled by jOOQ, internally
-        Connection conn = DriverManager.getConnection(url, userName, password);
-        DSLContext ctx = DSL.using(conn,SQLDialect.MYSQL);
-        Result<Record> incidents = ctx.select(INCIDENTS.asterisk()).from(INCIDENTS).orderBy(INCIDENTS.ZEITSTEMPEL.desc()).fetch();
 
-            for(Record r  : incidents){
-                try {
-                    ObjectNode obj = mapper.createObjectNode();
 
-                    Date date = r.get(INCIDENTS.ZEITSTEMPEL);
-                    Duration elapsed = Duration.between(date.toInstant(),Instant.now());
-                    String timeagostring = "error";
+        try (Connection conn = DriverManager.getConnection(url, userName, password);) {
+            DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
+            Result<Record> incidents = ctx.select(INCIDENTS.asterisk()).from(INCIDENTS).orderBy(INCIDENTS.ZEITSTEMPEL.desc()).fetch();
 
-                    if(elapsed.toDays()>0){
-                        timeagostring=elapsed.toDays()+" days ago";
-                    }else if(elapsed.toHours()>0){
-                        timeagostring=elapsed.toHours()+" hours ago";
-                    }else if(elapsed.toMinutes()>0){
-                        timeagostring=elapsed.toMinutes()+" minutes ago";
-                    }else{
-                        timeagostring=elapsed.getSeconds()+" seconds ago";
-                    }
+            for (Record r : incidents) {
+                ObjectNode obj = mapper.createObjectNode();
 
-                    obj.put("title", clean(r.get(INCIDENTS.BESCHREIBUNG) + ""));
-                    obj.put("timestamp",clean(r.get(INCIDENTS.ZEITSTEMPEL).toString()));
-                    obj.put("timeagostring", timeagostring);
-                    obj.put("imgsrc","http://"+host+":3002/?id="+r.get(INCIDENTS.ID));
-                    arr.add(obj);
-                    System.out.println(r.get(INCIDENTS.BESCHREIBUNG));
-                }catch (Exception e){
-                    //pass
+                Date date = r.get(INCIDENTS.ZEITSTEMPEL);
+                Duration elapsed = Duration.between(date.toInstant(), Instant.now());
+                String timeagostring = "error";
+
+                if (elapsed.toDays() > 0) {
+                    timeagostring = elapsed.toDays() + " days ago";
+                } else if (elapsed.toHours() > 0) {
+                    timeagostring = elapsed.toHours() + " hours ago";
+                } else if (elapsed.toMinutes() > 0) {
+                    timeagostring = elapsed.toMinutes() + " minutes ago";
+                } else {
+                    timeagostring = elapsed.getSeconds() + " seconds ago";
                 }
 
+                obj.put("title", clean(r.get(INCIDENTS.BESCHREIBUNG) + ""));
+                obj.put("timestamp", clean(r.get(INCIDENTS.ZEITSTEMPEL).toString()));
+                obj.put("timeagostring", timeagostring);
+                obj.put("imgsrc", "http://" + host + ":3002/?id=" + r.get(INCIDENTS.ID));
+
+                obj.put("longitude", r.get(INCIDENTS.LON));
+                obj.put("latitude", r.get(INCIDENTS.LAT));
+
+                arr.add(obj);
+                System.out.println(r.get(INCIDENTS.BESCHREIBUNG));
             }
-        conn.close();
+            conn.close();
+        }
+
 
         return arr;
     }
@@ -119,6 +123,6 @@ public class ReportsController extends VaquitaController {
         //String s = r.toString();
         //System.out.println(s);
 
-        return new VaquitaTextResponse(200,"ok");
+        return new VaquitaTextResponse(200, "ok");
     }
 }

@@ -29,8 +29,8 @@ public class IndexController extends VaquitaController {
                 body(
                         nav(
                                 span("CityHelps").withClasses("h1 navbar-brand"),
-                                p("Max Musterman")
-                        ).withClasses("navbar","navbar-light","bg-light"),
+                                p("Max Mustermann")
+                        ).withClasses("navbar", "navbar-light", "bg-light"),
                         main(attrs("#main.content"),
                                 div(
                                         div(
@@ -41,7 +41,7 @@ public class IndexController extends VaquitaController {
                                                 ).withId("alerts_container")
                                         ).withClasses("col-md-3 bg-light").withStyle(""),
                                         div(
-                                            div().withId("mapid")
+                                                div().withId("mapid")
                                         ).withClasses("col-md-6 p-0 m-0"),
                                         div(makeDetailView()).withClasses("col-md-3 bg-light")
                                 ).withClasses("row")
@@ -53,26 +53,26 @@ public class IndexController extends VaquitaController {
         return new VaquitaHTMLResponse(200, page.render());
     }
 
-    private static ContainerTag makeAlertCard(String title, int minutesAgo){
+    private static ContainerTag makeAlertCard(String title, int minutesAgo) {
         return div(
                 div(
-                    h5(title).withClasses("card-title").withStyle("color:red;"),
+                        h5(title).withClasses("card-title").withStyle("color:red;"),
 
-                    div(p("accident alert"),
-                            p("3 Beteiligte")
-                    ).withClasses("card-text")
+                        div(p("accident alert"),
+                                p("3 Beteiligte")
+                        ).withClasses("card-text")
                 ).withClasses("card-body"),
                 div(
-                    div(
                         div(
-                            span(minutesAgo+" minutes ago")
-                        ).withClasses("col-md-6"),
-                        div(
-                            button("view").withClasses("btn btn-block btn-sm btn-outline-primary")
-                        ).withClasses("col-md-6")
-                    ).withClasses("row align-items-center justify-content-center")
-                ).withClasses("card-footer","text-muted")
-        ).withClasses("card","m-2");
+                                div(
+                                        span(minutesAgo + " minutes ago")
+                                ).withClasses("col-md-6"),
+                                div(
+                                        button("view").withClasses("btn btn-block btn-sm btn-outline-primary")
+                                ).withClasses("col-md-6")
+                        ).withClasses("row align-items-center justify-content-center")
+                ).withClasses("card-footer", "text-muted")
+        ).withClasses("card", "m-2");
     }
 
     @Override
@@ -95,9 +95,9 @@ public class IndexController extends VaquitaController {
                 ).withClasses("text-muted"),
                 div(
 
-                    img().withSrc("https://via.placeholder.com/320")
-                            .withStyle("width:100%")
-                            .withAlt("Image of the accident").withId("image")
+                        img().withSrc("https://via.placeholder.com/320")
+                                .withStyle("width:100%")
+                                .withAlt("Image of the accident").withId("image")
 
                 ),
                 div().withClasses("m-3"),

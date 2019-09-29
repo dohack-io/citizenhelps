@@ -88,7 +88,7 @@ public class ReportsController extends VaquitaController {
                 obj.put("latitude", r.get(INCIDENTS.LAT));
 
                 arr.add(obj);
-                System.out.println(r.get(INCIDENTS.BESCHREIBUNG));
+                //System.out.println(r.get(INCIDENTS.BESCHREIBUNG));
             }
             conn.close();
         }

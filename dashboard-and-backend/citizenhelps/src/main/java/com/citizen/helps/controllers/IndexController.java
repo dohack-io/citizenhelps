@@ -41,10 +41,9 @@ public class IndexController extends VaquitaController {
                                 div(
                                         div(
                                                 h2("Alerts").withClasses("text-center"),
-                                                hr(),
                                                 div(
 
-                                                ).withId("alerts_container")
+                                                ).withId("alerts_container").withStyle("overflow-y:scroll; max-height:800px;")
                                         ).withClasses("col-md-3 bg-light").withStyle(""),
                                         div(
                                                 div().withId("mapid")
@@ -91,7 +90,6 @@ public class IndexController extends VaquitaController {
                 div(
                         h2("Details")
                 ).withClasses("text-center"),
-                hr(),
                 h5(
                         "~"
                 ).withId("description"),

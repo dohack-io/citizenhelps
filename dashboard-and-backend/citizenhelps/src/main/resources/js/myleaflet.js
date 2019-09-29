@@ -1,6 +1,6 @@
 var mymap = L.map('mapid').setView([51.50432, 7.527], 13);
 
-
+var markerLayerGroup = L.layerGroup().addTo(mymap);
 
 L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -9,6 +9,12 @@ L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var myicon = L.icon({
     iconUrl: 'https://image.flaticon.com/icons/svg/564/564619.svg',
     iconSize: [38, 95],
+    iconAnchor: [0, -175],
+    popupAnchor: [0, 0]
+});
+var myicon_big = L.icon({
+    iconUrl: 'https://image.flaticon.com/icons/svg/564/564619.svg',
+    iconSize: [38*2, 95*2],
     iconAnchor: [0, -175],
     popupAnchor: [0, 0]
 });
@@ -24,7 +30,11 @@ var detail_img  = document.getElementById("image");
 var alerts_container = document.getElementById("alerts_container");
 
 
+
 function createAlertItem(item){
+    var mymarker = L.marker([item.latitude, item.longitude],{icon:myicon});
+    mymarker.addTo(markerLayerGroup);
+
     var res = document.createElement("div");
     res.className="card m-2";
 
@@ -40,6 +50,14 @@ function createAlertItem(item){
         detail_timestamp.innerHTML  ="Timestamp: "+item.timestamp+"";
         detail_img.src=item.imgsrc;
         mymap.setView([item.latitude, item.longitude], 14);
+
+        //TODO: set all others to have small icon
+        mymap.eachLayer(function(lyr){
+            if(lyr instanceof L.Marker){
+                lyr.setIcon(myicon);
+            }
+        });
+        mymarker.setIcon(myicon_big);
     });
 
     var footerrow = document.createElement("div");
@@ -67,7 +85,7 @@ function createAlertItem(item){
     res.appendChild(body);
     res.appendChild(footer);
 
-    L.marker([item.latitude, item.longitude],{icon:myicon}).addTo(mymap);
+
 
     return res;
 }
@@ -83,6 +101,10 @@ function pollServerForAlerts(){
             //console.log(data);
             var alerts;
             alerts=data;
+
+            //clear the markers off the map
+            //https://stackoverflow.com/questions/41256026/clear-marker-layers-leaflet
+            markerLayerGroup.clearLayers();
 
             alerts_container.innerHTML="";
 

@@ -10,6 +10,7 @@ import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
+import org.jooq.types.UInteger;
 import org.vanautrui.vaquitamvc.VaquitaApp;
 import org.vanautrui.vaquitamvc.controller.VaquitaController;
 import org.vanautrui.vaquitamvc.requests.VaquitaHTTPEntityEnclosingRequest;
@@ -23,10 +24,7 @@ import java.sql.DriverManager;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 ;import static com.citizen.helps.generated.tables.Incidents.INCIDENTS;
 
 public class ReportsController extends VaquitaController {
@@ -47,7 +45,7 @@ public class ReportsController extends VaquitaController {
     public static String clean(String str) {
         return str.replaceAll("ä", "ae").replaceAll("ö", "oe").replaceAll("ü", "ue");
     }
-
+    public static final  Random rand = new Random();
     public static final String userName = "27WJWpOHnj";
     public static final String password = "7E7Fllxl56";
     public static final String url = "jdbc:mysql://remotemysql.com:3306/27WJWpOHnj";
@@ -104,6 +102,8 @@ public class ReportsController extends VaquitaController {
 
         JsonNode r = vaquitaHTTPEntityEnclosingRequest.getJsonFromEntity();
 
+        //System.out.println(r.toString());
+
         //TODO: handle request
         try(Connection conn = DriverManager.getConnection(url, userName, password)){
             DSLContext ctx = DSL.using(conn,SQLDialect.MYSQL);
@@ -116,11 +116,12 @@ public class ReportsController extends VaquitaController {
 
             byte[] img_bytes=imageBytes;
 
-            ctx.insertInto(INCIDENTS).columns(
+            int myrandomid = (rand.nextInt()%100000)+1000;
+            ctx.insertInto(INCIDENTS).columns(INCIDENTS.ID,
                     INCIDENTS.ART,INCIDENTS.BESCHREIBUNG,
                     INCIDENTS.BILD,INCIDENTS.LAT,INCIDENTS.LON,
                     INCIDENTS.WEITERE_INFOS,INCIDENTS.ZEITSTEMPEL)
-                    .values(
+                    .values(UInteger.valueOf(myrandomid),
                             r.get("art").asText(),r.get("beschreibung").asText(),
                             img_bytes,r.get("lat").asDouble(),r.get("lon").asDouble(),
                             "",new Timestamp(r.get("zeitstempel").asInt())

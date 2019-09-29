@@ -28,7 +28,13 @@ public class IndexController extends VaquitaController {
                 ),
                 body(
                         nav(
-                                span("CityHelps").withClasses("h1 navbar-brand"),
+                                a(
+                                        img()
+                                                .withStyle("height: 60px; width: auto;")
+                                                .withSrc("https://raw.githubusercontent.com/dohack-io/citizenhelps/master/dashboard-and-backend/citizenhelps/src/main/resources/img/cityhelps_logo.png").withStyle("width:30px; height:30px;"),
+                                        span("CityHelps").withClasses("h1 ")
+                                ).withClasses("navbar-brand").withSrc("#"),
+
                                 p("Max Mustermann")
                         ).withClasses("navbar", "navbar-light", "bg-light"),
                         main(attrs("#main.content"),

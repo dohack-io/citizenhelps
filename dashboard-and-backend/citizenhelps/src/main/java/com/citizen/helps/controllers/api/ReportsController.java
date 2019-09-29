@@ -107,13 +107,22 @@ public class ReportsController extends VaquitaController {
         //TODO: handle request
         try(Connection conn = DriverManager.getConnection(url, userName, password)){
             DSLContext ctx = DSL.using(conn,SQLDialect.MYSQL);
+
+            String base_64_img_str=r.get("bild").asText();
+
+            String base64Image = base_64_img_str.split(",")[1];
+            byte[] imageBytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
+
+
+            byte[] img_bytes=imageBytes;
+
             ctx.insertInto(INCIDENTS).columns(
                     INCIDENTS.ART,INCIDENTS.BESCHREIBUNG,
                     INCIDENTS.BILD,INCIDENTS.LAT,INCIDENTS.LON,
                     INCIDENTS.WEITERE_INFOS,INCIDENTS.ZEITSTEMPEL)
                     .values(
                             r.get("art").asText(),r.get("beschreibung").asText(),
-                            r.get("bild").binaryValue(),r.get("lat").asDouble(),r.get("lon").asDouble(),
+                            img_bytes,r.get("lat").asDouble(),r.get("lon").asDouble(),
                             "",new Timestamp(r.get("zeitstempel").asInt())
                     ).execute();
         }catch (Exception e){

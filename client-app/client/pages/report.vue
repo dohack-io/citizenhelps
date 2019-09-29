@@ -25,7 +25,7 @@
                             <v-btn :color="(btn1?'blue':'')" @click="btn1=!btn1" :depressed="btn1"
                             >Personenschaden
                             </v-btn>
-                            <v-btn :color="(!btn1?'blue':'')" @click="btn1=!btn1" :depressed="!btn1" v-model="btn2"
+                            <v-btn :color="(!btn1?'blue':'')" @click="btn1=!btn1" :depressed="!btn1"
                             >Sachschaden
                             </v-btn>
                         </v-btn-toggle>

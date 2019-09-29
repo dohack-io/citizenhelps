@@ -27,10 +27,10 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
             <v-row align="center" justify="center">
                 <v-col v-if="stage==='start'" cols="10">
 
-                    <v-btn block @click="(make_photo(),stop_video(),stage='photo_taken')">Make Photo</v-btn>
+                    <v-btn block @click="(make_photo(),stage='photo_taken')">Make Photo</v-btn>
                 </v-col>
                 <v-col v-if="stage==='photo_taken'" cols="10">
-                    <v-btn block @click="send_picture()">Save&Send</v-btn>
+<!--                    <v-btn block @click="send_picture()">Save&Send</v-btn>-->
                     <v-btn block @click="(stage='start',stop_video(),go())">New Image</v-btn>
                 </v-col>
             </v-row>
@@ -172,8 +172,12 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
       },
       // Sends picture to the local server
       send_picture: function (file) {
+        if(!file){
+          file = this.photo;
+        }
         let data = new FormData();
         data.append('file', file, file.fileName);
+        console.log(data);
         let payload = {
           "art": "personalschaden",
           "lat": 51.002,
@@ -226,7 +230,8 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
         this.url = imageDataURL;
         console.log('imageBlob', photo);
         console.log('The image URL:', this.url);
-        this.send_picture(photo);
+        this.photo = photo;
+        // this.send_picture(photo);
         this.loading = false;
       },
 

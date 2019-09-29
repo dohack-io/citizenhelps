@@ -46,7 +46,8 @@ public class Nanohttpdapp extends NanoHTTPD {
             return newFixedLengthResponse(Response.Status.OK, "image/jpg", is, imagebytespng.length);
         }catch (Exception ee){
             //
+            ee.printStackTrace();
         }
-        return newFixedLengthResponse("error");
+        return newFixedLengthResponse("error ");
     }
 }

@@ -170,7 +170,7 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
       },
       // Sends picture to the local server
       send_picture: function (file) {
-        this.$emit('photo_url',this.url);
+        this.$emit('photo_url', this.url);
         this.close();
 //         if(!file){
 //           file = this.photo;

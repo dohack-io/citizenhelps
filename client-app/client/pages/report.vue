@@ -111,7 +111,7 @@
       mdiCrosshairsGps: mdiCrosshairsGps,
       camera_icon: mdiCamera,
       take_video: false,
-      img_url:null,
+      img_url: null,
       valid: true,
       name: '',
       nameRules: [
@@ -135,8 +135,8 @@
     }),
     computed: {},
     methods: {
-      photo_url:function(val){
-        this.img_url=val;
+      photo_url: function (val) {
+        this.img_url = val;
       },
       close: async function () {
         this.loading = true;
@@ -159,45 +159,83 @@
       },
       // Sends picture to the local server
       send_form: function () {
+        // let dateObj = new Date(unixTimestamp * 1000);
+        // let utcString = dateObj.toUTCString();
+        let time = Math.round(Date.now() / 1000);
+        console.log('Time:', Math.round(Date.now() / 1000));
+        console.log('Image as String:', this.img_url);
 
-        let payload = {
-          "art": "personalschaden",
-          "lat": 51.002,
-          "lon": 8.023,
-          "bild": this.img_url,
-          "beschreibung": "Test Nummer 1",
-          "did_send_personal_data": true,
-          "zeitstempel": 1569726392
-        };
-        // "http://localhost:3000/api/hackathons",
-// "http://134.209.232.135:3001/api/reports",
-        axios
-            .post(
-                "http://134.209.232.135:3001/api/reports",
-                payload,
-                {
-                  headers: {
-                    'Content-Type': 'application/json',
-                    // 'Accept-Language': 'en-US,en;q=0.8',
-                    // 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
-                  }
-                })
-            .then(response => {
-              console.log("Axios:", response);
-              this.$emit('photo_sent');
-              this.photo_sent = true;
-              this.loading = false;
-              this.close();
-            })
-            .catch(error => {
-              // Handle Errors here.
-              this.loading = false;
+        try {
+          const data = postData('http://134.209.232.135:3001/api/reports', {
+            art: "hi",
+            lat: 43.3,
+            lon: 34.3,
+            bild: this.img_url,
+            beschreibung: "beschreibung"+time,
+            did_send_personal_data: true,
+            zeitstempel: 1
+          });
+          console.log('r',data);
+          console.log(JSON.stringify(data)); // JSON-string from `response.json()` call
+        } catch (error) {
+          console.error(error);
+        }
 
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              console.log('Error', errorCode, errorMessage);
-              // ...
-            });
+        async function postData(url = '', data = {}) {
+          // Default options are marked with *
+          const response = await fetch(url, {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'no-cors', // no-cors, *cors, same-origin
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, *same-origin, omit
+            headers: {
+              'Content-Type': 'application/json'
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            redirect: 'follow', // manual, *follow, error
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+          });
+          return await response; // parses JSON response into native JavaScript objects
+        }
+
+//         let payload = JSON.stringify({
+//           art: "hi",
+//           lat: 43.3,
+//           lon: 34.3,
+//           bild: this.img_url,
+//           beschreibung: "beschreibung",
+//           did_send_personal_data: true,
+//           zeitstempel: time
+//         });
+//         // "http://localhost:3000/api/hackathons",
+// // "http://134.209.232.135:3001/api/reports",
+//         axios
+//             .post(
+//                 "http://134.209.232.135:3001/api/reports",
+//                 payload,
+//                 {
+//                   headers: {
+//                     'Content-Type': 'application/json',
+//                     // 'Accept-Language': 'en-US,en;q=0.8',
+//                     // 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
+//                   }
+//                 })
+//             .then(response => {
+//               console.log("Axios:", response);
+//               this.$emit('photo_sent');
+//               this.photo_sent = true;
+//               this.loading = false;
+//               this.close();
+//             })
+//             .catch(error => {
+//               // Handle Errors here.
+//               this.loading = false;
+//
+//               var errorCode = error.code;
+//               var errorMessage = error.message;
+//               console.log('Error', errorCode, errorMessage);
+//               // ...
+//             });
       },
     }
   }

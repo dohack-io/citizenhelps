@@ -7,9 +7,8 @@ const app = express();
 
 
 //Increasing size for transactions
-app.use(bodyParser.json({type: '*/*',limit: '50mb', extended: true}));
+app.use(bodyParser.json({type: '*/*', limit: '50mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
 
 
 // Require API routes
@@ -19,19 +18,6 @@ const router = Router();
 // Mock Users
 // const Model = require('./models');
 
-
-// MONGO DB
-// const mongoose = require('mongoose');
-// const db = uri + '/test';
-//
-// console.log('Connected to ' + db);
-// mongoose.connect(db, (err, res) => {
-//   if (err) {
-//     console.log('Failed to connected to ' + db)
-//   } else {
-//     console.log('Connected to ' + db)
-//   }
-// });
 
 
 // router.get('/hackathons', function (req, res) {

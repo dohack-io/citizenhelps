@@ -60,7 +60,7 @@ public class ReportsController extends VaquitaController {
 
         try (Connection conn = DriverManager.getConnection(url, userName, password);) {
             DSLContext ctx = DSL.using(conn, SQLDialect.MYSQL);
-            Result<Record> incidents = ctx.select(INCIDENTS.asterisk()).from(INCIDENTS).orderBy(INCIDENTS.ZEITSTEMPEL.desc()).fetch();
+            Result<Record> incidents = ctx.select(INCIDENTS.asterisk()).from(INCIDENTS).orderBy(INCIDENTS.ZEITSTEMPEL.desc()).limit(10).fetch();
 
             for (Record r : incidents) {
                 ObjectNode obj = mapper.createObjectNode();

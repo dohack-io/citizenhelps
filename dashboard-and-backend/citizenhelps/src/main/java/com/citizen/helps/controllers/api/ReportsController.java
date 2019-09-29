@@ -58,7 +58,7 @@ public class ReportsController extends VaquitaController {
         // PreparedStatement and ResultSet are handled by jOOQ, internally
         Connection conn = DriverManager.getConnection(url, userName, password);
         DSLContext ctx = DSL.using(conn,SQLDialect.MYSQL);
-        Result<Record> incidents = ctx.select(INCIDENTS.asterisk()).from(INCIDENTS).fetch();
+        Result<Record> incidents = ctx.select(INCIDENTS.asterisk()).from(INCIDENTS).orderBy(INCIDENTS.ZEITSTEMPEL.desc()).fetch();
 
             for(Record r  : incidents){
                 try {

@@ -1,3 +1,7 @@
 target/
 *.class
 *.jar
+*.iml
+
+#IDEA Files
+.idea/

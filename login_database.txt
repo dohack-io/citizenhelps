@@ -1,0 +1,28 @@
+// ------------------------------------------------- // 
+
+// Free mysql cloud database , 100 MB
+
+// ------------------------------------------------- //
+
+
+
+You have successfully created a new database.
+The details are below.
+
+Username: 27WJWpOHnj
+
+
+
+Database name: 27WJWpOHnj
+
+
+
+Password: 7E7Fllxl56
+
+
+
+Server: remotemysql.com
+
+
+
+Port: 3306

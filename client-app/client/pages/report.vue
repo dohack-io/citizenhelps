@@ -40,6 +40,7 @@
 
                         <v-text-field
                                 v-if="comments_on"
+                                v-model="textfield_text"
                                 label="Anmerkung"
                                 solo
                         ></v-text-field>
@@ -62,13 +63,15 @@
             <v-col cols="10" style="text-align: center; ">
                 <v-btn block large :loading="loading" @click="send_form()">
                     senden
-                    <v-icon class="pl-2" small color="blue" v-if="photo_sent">{{camera_icon}}</v-icon>
+                    <v-icon class="pl-2" color="blue" v-if="img_url">{{camera_icon}}</v-icon>
 
                     <v-icon class="pl-2" small color="blue" v-if="icon1">far fa-compass</v-icon>
                     <v-icon class="pl-2" v-if="icon2" small color="blue">far fa-user</v-icon>
                 </v-btn>
             </v-col>
         </v-row>
+        <Geolocation @coords="got_coords" v-if="icon1"></Geolocation>
+
     </v-container>
 
 </template>
@@ -78,6 +81,7 @@
 
 
   import axios from "axios";
+  import Geolocation from "./geolocation.vue";
 
   axios.defaults.headers.post = {
     'Access-Control-Allow-Origin': "*",
@@ -96,9 +100,17 @@
     name: "report",
     components: {
       Video,
+      Geolocation,
+
 
     },
     data: () => ({
+      //Coords
+      green_visible: false,
+      get_geolocation: false,
+      coords: {},
+      //Sonds
+      textfield_text: "",
       photo_sent: false,
       toggle_multiple: [],
       icon1: false,
@@ -113,28 +125,22 @@
       take_video: false,
       img_url: null,
       valid: true,
-      name: '',
-      nameRules: [
-        v => !!v || 'Name is required',
-        v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-      ],
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
       select: null,
-      items: [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-      ],
       checkbox: false,
       lazy: false,
     }),
     computed: {},
     methods: {
+      got_coords: async function (val) {
+        this.loading = true;
+        await sleep(0.9);
+        this.coords = val;
+        console.log('got coords', this.coords);
+        this.loading = false;
+        await sleep(0.4);
+        this.green_visible = true;
+
+      },
       photo_url: function (val) {
         this.img_url = val;
       },
@@ -167,15 +173,15 @@
 
         try {
           const data = postData('http://134.209.232.135:3001/api/reports', {
-            art: "hi",
-            lat: 43.3,
-            lon: 34.3,
+            art: "personenschaden",
+            lat: this.coords.lat || 0,
+            lon: this.coords.lng || 0,
             bild: this.img_url,
-            beschreibung: "beschreibung"+time,
+            beschreibung: this.textfield_text || "Beschreibung " + time,
             did_send_personal_data: true,
             zeitstempel: 1
           });
-          console.log('r',data);
+          console.log('r', data);
           console.log(JSON.stringify(data)); // JSON-string from `response.json()` call
         } catch (error) {
           console.error(error);

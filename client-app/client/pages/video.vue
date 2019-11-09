@@ -30,7 +30,7 @@ Designed to work with Nuxt / Vue.js / AWS Rekognition and Lambda
                     <v-btn block @click="(make_photo(),stage='photo_taken')">Make Photo</v-btn>
                 </v-col>
                 <v-col v-if="stage==='photo_taken'" cols="10">
-                    <v-btn block @click="send_picture()">Save&Send</v-btn>
+                    <v-btn block @click="send_picture()">Speichern</v-btn>
                     <v-btn block @click="(stage='start',stop_video(),go())">New Image</v-btn>
                 </v-col>
             </v-row>

@@ -172,7 +172,7 @@
         console.log('Image as String:', this.img_url);
 
         try {
-          const data = postData('http://134.209.232.135:3001/api/reports', {
+          const data = postData('https://pm4latkds2.execute-api.us-east-1.amazonaws.com/proxy', {
             art: "personenschaden",
             lat: this.coords.lat || 0,
             lon: this.coords.lng || 0,
@@ -183,8 +183,9 @@
           });
           console.log('r', data);
           console.log(JSON.stringify(data)); // JSON-string from `response.json()` call
+          this.close();
         } catch (error) {
-          console.error(error);
+          console.error('Error',error);
         }
 
         async function postData(url = '', data = {}) {

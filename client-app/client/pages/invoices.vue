@@ -2,8 +2,10 @@
     <v-data-table
             :headers="headers"
             :items="transactions"
+            :dense="false"
             :items-per-page="5"
             class="elevation-1"
+            hide-default-footer
     >
         <template v-slot:top>
             <v-toolbar flat color="white">
@@ -70,7 +72,9 @@
     }),
     methods: {
       open_link: function (link) {
-        window.location.href = link;
+        // window.location.href = link;
+        window.open(link, '_blank');
+        window.open('https://explorer.factom.com/chains/317a451e3915b0b3df0cd5d8928bc3430634c10d9ad9a3f9c54a5db3ba9aa5a1', '_blank');
       }
     }
   }

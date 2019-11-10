@@ -1,7 +1,7 @@
 <template>
     <v-col>
         <v-row v-if="!loading" no-gutters align="center" justify="space-between">
-            <i class="caption" style="color: green">Powered by CJ Affiliate</i>
+            <i>powered by </i> <i class="caption" style="color: green"> CJ Affiliate</i>
             <v-btn-toggle
                     v-model="weather"
                     tile
@@ -33,17 +33,21 @@
                 </v-img>
 
                 <v-card-subtitle class="pb-0">{{ad.title}}</v-card-subtitle>
-                <v-row no-gutters>
-                    <v-card-text class="text--primary pa-1" v-if="weather==='sunny'">
+                <v-row no-gutters justify="space-between" align="center" class="caption">
+                    <v-col class="text--primary pa-1" v-if="weather==='sunny' && ad.price">
                         {{ad.price}}
-                    </v-card-text>
-                    <v-card-text class="text--primary pa-1" v-if="weather==='cloudy' && ad.price!= ad.discount"
-                                 style=" text-decoration: line-through;color: red">
+                    </v-col>
+                    <v-col class="text--primary pa-1" v-if="weather==='cloudy' && ad.price!= ad.discount && ad.price"
+                           style=" text-decoration: line-through;color: red!important;">
                         {{ad.price}}
-                    </v-card-text>
-                    <v-card-text class="text--primary pa-1" v-if="weather==='cloudy'">
+                    </v-col>
+                    <v-col class="text--primary pa-1" v-if="weather==='cloudy'&&ad.discount">
                         {{ad.discount}}
-                    </v-card-text>
+                    </v-col>
+                    <v-col class="flex-grow-0">
+                        <v-btn color="rgb(255,127,79)" small><span style="color: #f7f8fb!important">book</span></v-btn>
+
+                    </v-col>
                 </v-row>
 
 
@@ -88,9 +92,9 @@
         },
         {
           src: "https://media-cdn.tripadvisor.com/media/photo-s/19/80/3d/0f/salzburg-lakes-and-mountains.jpg",
-          discount: '€ 33 pro Person',
+          discount: '€ 25 pro Person',
           title: 'Salzburg: Seen und Bergregion - Hop-on-Hop-off-Bustour',
-          price: '€ 25 pro Person',
+          price: '€ 33 pro Person',
         },
         {
           src: "https://media-cdn.tripadvisor.com/media/photo-s/16/fc/9f/7f/untersberg-cable-car.jpg",
@@ -103,7 +107,8 @@
     }),
     methods: {
       open_link: function (link) {
-        window.location.href = link;
+        window.open(link, '_blank');
+        // window.location.href = link;
       },
       switch_weather: async function (weather) {
         this.loading = true;

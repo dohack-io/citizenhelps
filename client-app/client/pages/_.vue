@@ -7,7 +7,7 @@
                     <v-card>
                         <v-tabs
                                 v-model="tab"
-                                background-color="deep-purple accent-4"
+                                background-color="rgb(244,58,0)"
                                 dark
                         >
                             <v-menu bottom right>

@@ -1,11 +1,20 @@
-Blockchain:
+Our Chain
+https://explorer.factom.com/chains/317a451e3915b0b3df0cd5d8928bc3430634c10d9ad9a3f9c54a5db3ba9aa5a1
 
 
-{
-    "stage": "replicated",
-    "entry_hash": "4c4cc01cc4ae4a30f8261df8f3a9eed4847681c2c20306e8c15ea9a9e147b845",
-    "chain_id": "086c905173fa90fa1809741f2a0febc0aeea0a058454167973036f04e590218a"
-}
+    {
+        "stage": "replicated",
+        "entry_hash": "92714263626eb644a3fcbaedc3d17595be032e4a5fbad9392f73fbf971bc32be",
+        "chain_id": "317a451e3915b0b3df0cd5d8928bc3430634c10d9ad9a3f9c54a5db3ba9aa5a1"
+    }
+    
+    
+First Link: 
 
-
-http://134.209.232.135:3001/api/reports
+    {
+        "stage": "replicated",
+        "entry_hash": "5c69612b941a841382f3c76c1f05fb564946e26f4d8f0631242303fa25e0dfd0"
+    }
+    
+    
+    

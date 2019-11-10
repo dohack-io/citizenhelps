@@ -1,34 +1,85 @@
 <template>
     <v-app>
 
-        <v-container>
-            <v-row v-if="loading" align="center" justify="center" style="height:100%;">
-                <v-col style="height: 200px;text-align: center">
-                    <v-progress-circular
-                            :size="70"
-                            :width="7"
-                            color="blue"
-                            indeterminate
-                    ></v-progress-circular>
-                </v-col>
-            </v-row>
-            <v-row v-if="stage==='start'"
-                   align="center"
-                   v-for="(apps, category) in icons" :key="category"
-            >
-                <v-card class="ma-1" >
-                    {{category}}
-                    <v-row >
-                        <v-card class="ma-1" v-for="(val, key) in apps" :key="key">
-                            <v-img contain height="40" width="40" :src="val"/>
-                        </v-card>
-                    </v-row>
+        <v-container style="width: 500px">
+            <v-row justify="stretch">
+                <v-row v-if="loading" align="center" justify="center" style="height:100%;">
+                    <v-col style="height: 200px;text-align: center">
+                        <v-progress-circular
+                                :size="70"
+                                :width="7"
+                                color="blue"
+                                indeterminate
+                        ></v-progress-circular>
+                    </v-col>
+                </v-row>
+
+
+                <v-card>
+                    <v-tabs
+                            v-model="tab"
+                            background-color="deep-purple accent-4"
+
+                            dark
+                    >
+                        <v-menu bottom left>
+                            <template v-slot:activator="{ on }">
+                                <v-btn
+                                        dark
+                                        icon
+                                        v-on="on"
+                                >
+                                    <v-icon>mdi-dots-vertical</v-icon>
+                                </v-btn>
+                            </template>
+
+                            <v-list>
+                                <v-list-item
+                                        v-for="(item, i) in [1,2,3,4]"
+                                        :key="i"
+                                        @click=""
+                                >
+                                    <v-list-item-title>{{ item }}</v-list-item-title>
+                                </v-list-item>
+                            </v-list>
+                        </v-menu>
+                        <v-tabs-slider></v-tabs-slider>
+
+                        <v-tab v-for="(apps_group,key) in icons" :href="'#'+key">
+                            {{key}}
+                            <!--                            <v-icon>mdi-phone</v-icon>-->
+                        </v-tab>
+
+                    </v-tabs>
+
+                    <v-tabs-items v-model="tab">
+                        <v-tab-item
+                                v-for="(apps_group,key) in icons"
+                                :key="key"
+                                :value="key"
+                        >
+                            <v-col cols="12" v-for="(apps, category) in apps_group" :key="category">
+                                <v-card class="px-1" flat>
+                                    <h3 style="text-align: center">
+                                        {{category}}
+                                    </h3>
+                                    <v-row justify="center">
+                                        <v-card class="ma-1" v-for="(val, key) in apps" :key="key">
+                                            <v-img contain height="50" width="50" :src="val"/>
+                                        </v-card>
+
+                                    </v-row>
+                                </v-card>
+                            </v-col>
+                        </v-tab-item>
+                    </v-tabs-items>
                 </v-card>
 
 
             </v-row>
-<!--            <Help @close="stage='start'" v-if="stage==='help'"></Help>-->
-<!--            <Report @close="stage='start'" v-if="stage==='report'"></Report>-->
+
+            <!--            <Help @close="stage='start'" v-if="stage==='help'"></Help>-->
+            <!--            <Report @close="stage='start'" v-if="stage==='report'"></Report>-->
 
         </v-container>
 
@@ -74,31 +125,60 @@
 
     },
     data: () => ({
+      tab: null,
       stage: 'start',
       loading: false,
       icons: {
-        "Car Rental": [
-          "apps/app1.png",
-          "apps/audio_guide.png",
-          "apps/booking.jpg",
-          "apps/expedia.png",
-          "apps/radl_karte.png",
-          "apps/salzburg_opnv.png",
-          "apps/trip_advisor.png",
-          "apps/tripcase.png",
-          "apps/uber.jpg",
-          "apps/sixt.png",
-          "apps/hertz.jpg",
-          "apps/obb_rail_drive.jpg",
-          "apps/free_now.png",
-          "apps/drive_now.jpg",
-          "apps/car2go.png",
-          "apps/yelp.jpg",
-        ],
-        "Western Apps": [
-          "apps/google_maps.jpg",
-          "apps/google_translator.png",
-        ]
+        "Enjoy": {
+          "Hotel Services": [
+            "apps/spa.png",
+            "apps/bar.png",
+            "apps/chat_bot.png",
+            "apps/room_service.png",
+          ],
+          "Digital Guides": [
+            "apps/audio_guide.png",
+            "apps/app1.png",
+            "apps/ulmon.png",
+          ],
+          "City Discovery": [
+            "apps/trip_advisor.png",
+            "apps/tripcase.png",
+            "apps/yelp.jpg",
+            "apps/expedia.png",
+          ],
+        },
+        "Travel": {
+          "Green Travel": [
+            "apps/radl_karte.png",
+            "apps/salzburg_opnv.png",
+            "apps/salzburg_bahnen.png",
+          ],
+          "Car Rental": [
+            // "apps/booking.jpg",
+            "apps/sixt.png",
+            "apps/hertz.jpg",
+            "apps/obb_rail_drive.jpg",
+            // "apps/drive_now.jpg",
+            "apps/car2go.png",
+          ],
+          "Taxi Services": [
+            "apps/uber.jpg",
+            "apps/free_now.png",
+          ],
+        },
+        "新": {
+          "翻譯": [
+            "apps/google_translator.png",
+          ],
+          "地圖": [
+            "apps/google_maps.jpg",
+          ],
+          "購物": [
+            "apps/amazon.jpg",
+          ],
+        }
+
       },
       first_buttons: [
         {

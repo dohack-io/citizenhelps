@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-container style="width: 300px">
+        <v-container style="max-width: 300px">
             <v-row justify="stretch">
                 <v-row v-if="loading" align="center" justify="center" style="height:100%;">
                     <v-col style="height: 200px;text-align: center">
@@ -49,7 +49,7 @@
                             </v-menu>
                             <v-tabs-slider></v-tabs-slider>
 
-                            <v-tab v-for="(apps_group,key) in icons" :href="'#'+key" :key="key">
+                            <v-tab v-for="(apps_group,key) in icons" @click="view='apps'" :href="'#'+key" :key="key">
                                 {{key}}
                                 <!--                            <v-icon>mdi-phone</v-icon>-->
                             </v-tab>
@@ -82,6 +82,9 @@
                     </v-card>
 
                 </v-row>
+                <v-row>
+                    <Adds/>
+                </v-row>
 
             </v-row>
 
@@ -99,6 +102,7 @@
   import Help from "./help.vue";
   import Report from "./report.vue";
   import Invoices from "./invoices.vue";
+  import Adds from "./adds.vue";
   //import {LMap,LTileLayer,LControl} from "./../../node_modules/vue2-leaflet"
 
   var api_host = 'https://ohsrb65n38.execute-api.eu-central-1.amazonaws.com/proxy/'
@@ -129,7 +133,7 @@
 
   export default {
     components: {
-      Help, Report, Invoices
+      Help, Report, Invoices, Adds
 
     },
     data: () => ({

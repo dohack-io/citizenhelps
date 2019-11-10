@@ -1,0 +1,225 @@
+{
+  "_data_1_0_brand_navLinks_servlet_Attractions_locale_de_AT_geoId_190441_viewportCategory_MOBILE": {
+    "/data/1.0/brand/navLinks?servlet=Attractions&locale=de_AT&geoId=190441&viewportCategory=MOBILE": {
+      "headers": {
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Content-Length": "3555",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "links": [
+          {
+            "id": "tourism",
+            "text": "Salzburg",
+            "url": "/Home-g190441",
+            "icon": null,
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": false,
+            "trackingLabel": "tourism",
+            "isNewWindow": false,
+            "hideFromSidebar": true,
+            "sidebarPostCollapsed": false,
+            "promoteAsNew": false,
+            "subList": []
+          },
+          {
+            "id": "hotels",
+            "text": "Hotels",
+            "url": "/Hotels-g190441-Salzburg_Austrian_Alps-Hotels.html",
+            "icon": "hotels",
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": false,
+            "trackingLabel": "hotels",
+            "isNewWindow": false,
+            "hideFromSidebar": false,
+            "sidebarPostCollapsed": false,
+            "promoteAsNew": false,
+            "subList": []
+          },
+          {
+            "id": "attractions",
+            "text": "Aktivitäten",
+            "url": "/Attractions-g190441-Activities-Salzburg_Austrian_Alps.html",
+            "icon": "attractions",
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": false,
+            "trackingLabel": "attractions",
+            "isNewWindow": false,
+            "hideFromSidebar": false,
+            "sidebarPostCollapsed": false,
+            "promoteAsNew": false,
+            "subList": []
+          },
+          {
+            "id": "restaurants",
+            "text": "Restaurants",
+            "url": "/Restaurants-g190441-Salzburg_Austrian_Alps.html",
+            "icon": "restaurants",
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": false,
+            "trackingLabel": "restaurants",
+            "isNewWindow": false,
+            "hideFromSidebar": false,
+            "sidebarPostCollapsed": false,
+            "promoteAsNew": false,
+            "subList": []
+          },
+          {
+            "id": "flights",
+            "text": "Flüge",
+            "url": "/Flights-g190441-Salzburg_Austrian_Alps-Cheap_Discount_Airfares.html",
+            "icon": "flights",
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": false,
+            "trackingLabel": "flights",
+            "isNewWindow": false,
+            "hideFromSidebar": false,
+            "sidebarPostCollapsed": false,
+            "promoteAsNew": false,
+            "subList": []
+          },
+          {
+            "id": "vp",
+            "text": "Pauschalreisen",
+            "url": "/Vacation_Packages-g190441-Salzburg_Austrian_Alps-Vacations.html",
+            "icon": "on-the-beach",
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": false,
+            "trackingLabel": "vp",
+            "isNewWindow": false,
+            "hideFromSidebar": false,
+            "sidebarPostCollapsed": false,
+            "promoteAsNew": false,
+            "subList": []
+          },
+          {
+            "id": "cars",
+            "text": "Mietwagen",
+            "url": "/RentalCars-g190441-Salzburg_Austrian_Alps.html",
+            "icon": "parking",
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": false,
+            "trackingLabel": "cars",
+            "isNewWindow": false,
+            "hideFromSidebar": false,
+            "sidebarPostCollapsed": false,
+            "promoteAsNew": false,
+            "subList": []
+          },
+          {
+            "id": "Forums",
+            "text": "Reiseforum",
+            "url": "/ShowForum-g190441-i391-Salzburg_Austrian_Alps.html",
+            "icon": "forums",
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": true,
+            "trackingLabel": "Forums",
+            "isNewWindow": false,
+            "hideFromSidebar": false,
+            "sidebarPostCollapsed": false,
+            "promoteAsNew": false,
+            "subList": []
+          },
+          {
+            "id": "Airlines",
+            "text": "Fluglinien",
+            "url": "/Airlines",
+            "icon": "flights",
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": true,
+            "trackingLabel": "Airlines",
+            "isNewWindow": false,
+            "hideFromSidebar": false,
+            "sidebarPostCollapsed": false,
+            "promoteAsNew": false,
+            "subList": []
+          },
+          {
+            "id": "TravelersChoice",
+            "text": "2019 \"Best of\"",
+            "url": "/TravelersChoice",
+            "icon": "travelers-choice-badge",
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": true,
+            "trackingLabel": "TravelersChoice",
+            "isNewWindow": false,
+            "hideFromSidebar": false,
+            "sidebarPostCollapsed": false,
+            "promoteAsNew": false,
+            "subList": []
+          },
+          {
+            "id": "HelpDesk",
+            "text": "Hilfe",
+            "url": "#",
+            "icon": "question-circle",
+            "urlWithGeoTemplate": null,
+            "urlWithLatLngTemplate": null,
+            "forceCollapse": true,
+            "trackingLabel": "HelpDesk",
+            "isNewWindow": false,
+            "hideFromSidebar": false,
+            "sidebarPostCollapsed": true,
+            "promoteAsNew": false,
+            "subList": []
+          }
+        ],
+        "activeLinkId": "attractions",
+        "isQuickLinksMoreNewLine": true,
+        "isGeoScoped": true
+      },
+      "status": 200
+    }
+  },
+  "_data_1_0_brand_logo_servlet_Attractions_locale_de_AT_geoId_190441_viewportCategory_MOBILE": {
+    "/data/1.0/brand/logo?servlet=Attractions&locale=de_AT&geoId=190441&viewportCategory=MOBILE": {
+      "headers": {
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Content-Length": "444",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "logoLink": "/",
+        "primary_logo_svg": "https://static.tacdn.com/img2/langs/de_AT/branding/rebrand/TA_logo_primary.svg",
+        "secondary_logo_png": "https://static.tacdn.com/img2/langs/de_AT/branding/rebrand/TA_logo_secondary.png",
+        "primary_logo_png": "https://static.tacdn.com/img2/langs/de_AT/branding/rebrand/TA_logo_primary.png",
+        "secondary_logo_svg": "https://static.tacdn.com/img2/langs/de_AT/branding/rebrand/TA_logo_secondary.svg",
+        "resize_logo": false
+      },
+      "status": 200
+    }
+  },
+  "_data_1_0_brand_header_servlet_Attractions_viewportCategory_MOBILE_geoId_190441_pageName_Attractions_Coverpage_isTaReferrer_false": {
+    "/data/1.0/brand/header?servlet=Attractions&viewportCategory=MOBILE&geoId=190441&pageName=Attractions_Coverpage&isTaReferrer=false": {
+      "headers": {
+        "Pragma": "no-cache",
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Content-Length": "172",
+        "Content-Type": "application/json"
+      },
+      "body": {
+        "adjustForSmartBanner": false,
+        "showGeopill": true,
+        "numLines": 2,
+        "isPersistentHeader": false,
+        "usePersistentIcons": true,
+        "socialEnabled": true,
+        "hideLogo": false,
+        "liteHeader": false
+      },
+      "status": 200
+    }
+  }
+}

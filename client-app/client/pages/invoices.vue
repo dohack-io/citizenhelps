@@ -7,7 +7,7 @@
     >
         <template v-slot:top>
             <v-toolbar flat color="white">
-                <i class="caption">powered by <br/> American Express</i>
+                <i class="caption">powered by <br/> <span style="color: blue"> American Express</span></i>
                 <v-spacer></v-spacer>
                 <v-btn color="blue" small class="mt-2">Get all invoices</v-btn>
             </v-toolbar>

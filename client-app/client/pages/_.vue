@@ -1,7 +1,6 @@
 <template>
     <v-app>
-
-        <v-container style="width: 500px">
+        <v-container style="width: 300px">
             <v-row justify="stretch">
                 <v-row v-if="loading" align="center" justify="center" style="height:100%;">
                     <v-col style="height: 200px;text-align: center">
@@ -14,67 +13,75 @@
                     </v-col>
                 </v-row>
 
-
-                <v-card>
-                    <v-tabs
-                            v-model="tab"
-                            background-color="deep-purple accent-4"
-
-                            dark
-                    >
-                        <v-menu bottom left>
-                            <template v-slot:activator="{ on }">
-                                <v-btn
-                                        dark
-                                        icon
-                                        v-on="on"
-                                >
-                                    <v-icon>mdi-dots-vertical</v-icon>
-                                </v-btn>
-                            </template>
-
-                            <v-list>
-                                <v-list-item
-                                        v-for="(item, i) in [1,2,3,4]"
-                                        :key="i"
-                                        @click=""
-                                >
-                                    <v-list-item-title>{{ item }}</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
-                        <v-tabs-slider></v-tabs-slider>
-
-                        <v-tab v-for="(apps_group,key) in icons" :href="'#'+key">
-                            {{key}}
-                            <!--                            <v-icon>mdi-phone</v-icon>-->
-                        </v-tab>
-
-                    </v-tabs>
-
-                    <v-tabs-items v-model="tab">
-                        <v-tab-item
-                                v-for="(apps_group,key) in icons"
-                                :key="key"
-                                :value="key"
+                <v-row justify="center">
+                    <v-card>
+                        <v-tabs
+                                v-model="tab"
+                                background-color="deep-purple accent-4"
+                                dark
                         >
-                            <v-col cols="12" v-for="(apps, category) in apps_group" :key="category">
-                                <v-card class="px-1" flat>
-                                    <h3 style="text-align: center">
-                                        {{category}}
-                                    </h3>
-                                    <v-row justify="center">
-                                        <v-card class="ma-1" v-for="(val, key) in apps" :key="key">
-                                            <v-img contain height="50" width="50" :src="val"/>
-                                        </v-card>
-
-                                    </v-row>
+                            <v-menu bottom right>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                            dark
+                                            icon
+                                            v-on="on"
+                                    >
+                                        <v-icon>mdi-dots-vertical</v-icon>
+                                    </v-btn>
+                                </template>
+                                <v-card>
+                                    <v-card-title>Welcome to TIROLERHOF</v-card-title>
+                                    <v-list>
+                                        <v-list-item
+                                                v-for="(item, i) in menus"
+                                                :key="i"
+                                                @click="view='invoices'"
+                                        >
+                                            <v-list-item-title>
+                                                {{ item[0] }}
+                                                <span style="color: #6d6f74">{{item[1]}}</span>
+                                            </v-list-item-title>
+                                        </v-list-item>
+                                    </v-list>
                                 </v-card>
-                            </v-col>
-                        </v-tab-item>
-                    </v-tabs-items>
-                </v-card>
 
+                            </v-menu>
+                            <v-tabs-slider></v-tabs-slider>
+
+                            <v-tab v-for="(apps_group,key) in icons" :href="'#'+key" :key="key">
+                                {{key}}
+                                <!--                            <v-icon>mdi-phone</v-icon>-->
+                            </v-tab>
+
+                        </v-tabs>
+
+                        <v-tabs-items v-model="tab" v-if="view==='apps'">
+                            <v-tab-item
+                                    v-for="(apps_group,key) in icons"
+                                    :key="key"
+                                    :value="key"
+                            >
+                                <v-col cols="12" v-for="(apps, category) in apps_group" :key="category">
+                                    <v-card class="px-1" flat>
+                                        <h3 style="text-align: center">
+                                            {{category}}
+                                        </h3>
+                                        <v-row justify="center">
+                                            <v-card class="ma-1" v-for="(val, key) in apps" :key="key">
+                                                <v-img contain height="50" width="50" :src="val"/>
+                                            </v-card>
+                                        </v-row>
+                                    </v-card>
+                                </v-col>
+                            </v-tab-item>
+
+                        </v-tabs-items>
+                        <Invoices v-if="view==='invoices'"/>
+
+                    </v-card>
+
+                </v-row>
 
             </v-row>
 
@@ -91,6 +98,7 @@
   import Vue from "vue";
   import Help from "./help.vue";
   import Report from "./report.vue";
+  import Invoices from "./invoices.vue";
   //import {LMap,LTileLayer,LControl} from "./../../node_modules/vue2-leaflet"
 
   var api_host = 'https://ohsrb65n38.execute-api.eu-central-1.amazonaws.com/proxy/'
@@ -121,11 +129,12 @@
 
   export default {
     components: {
-      Help, Report
+      Help, Report, Invoices
 
     },
     data: () => ({
       tab: null,
+      view: 'apps',
       stage: 'start',
       loading: false,
       icons: {
@@ -210,6 +219,11 @@
         },
 
       ],
+      menus: [
+        ['Your Phone Number:', '+4915773674378'],
+        ['Your Credit Card Balance:', '150 EUR'],
+        ['View Invoices']
+      ],
 
       visited: [''],
       data1: 0,
@@ -220,7 +234,11 @@
 
     }),
     methods: {
+
       get_coupon: function () {
+      },
+      view_invoices: function () {
+
       },
       switch_stage: async function (stage_name) {
         this.loading = true;

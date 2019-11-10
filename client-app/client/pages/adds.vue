@@ -1,6 +1,6 @@
 <template>
     <v-col>
-        <v-row no-gutters align="center" justify="space-between">
+        <v-row v-if="!loading" no-gutters align="center" justify="space-between">
             <i class="caption" style="color: green">Powered by CJ Affiliate</i>
             <v-btn-toggle
                     v-model="weather"
@@ -20,7 +20,7 @@
             <v-card
                     class="mt-1"
                     max-width="300"
-                    v-if="ad.price&&weather==='sunny'||ad.discount&&weather==='cloudy'"
+                    v-if="ad.price && weather==='sunny' || ad.discount && weather==='cloudy'"
                     v-for="(ad,key) in ads"
                     :key="key"
             >
@@ -48,6 +48,16 @@
 
 
             </v-card>
+        </v-row>
+        <v-row v-if="loading" align="center" justify="center" style="height:100%;">
+            <v-col style="height: 200px;text-align: center">
+                <v-progress-circular
+                        :size="70"
+                        :width="7"
+                        color="blue"
+                        indeterminate
+                ></v-progress-circular>
+            </v-col>
         </v-row>
 
     </v-col>
@@ -90,7 +100,31 @@
 
         },
       ]
-    })
+    }),
+    methods: {
+      open_link: function (link) {
+        window.location.href = link;
+      },
+      switch_weather: async function (weather) {
+        this.loading = true;
+        // await sleep(0.4);
+        this.weather = weather;
+        console.log(this.weather, this.loading);
+        this.loading = false;
+        console.log(this.weather, this.loading);
+
+      }
+    },
+    watch: {
+      // weather: async function () {
+      //   console.log(this.weather, this.loading);
+      //   this.loading = true;
+      //   await sleep(0.4);
+      //   this.loading = false;
+      //   console.log(this.weather, this.loading);
+      // }
+
+    }
   }
 </script>
 

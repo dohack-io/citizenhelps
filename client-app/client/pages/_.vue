@@ -2,16 +2,6 @@
     <v-app>
         <v-container style="max-width: 300px">
             <v-row justify="stretch">
-                <v-row v-if="loading" align="center" justify="center" style="height:100%;">
-                    <v-col style="height: 200px;text-align: center">
-                        <v-progress-circular
-                                :size="70"
-                                :width="7"
-                                color="blue"
-                                indeterminate
-                        ></v-progress-circular>
-                    </v-col>
-                </v-row>
 
                 <v-row justify="center">
                     <v-card>
@@ -78,12 +68,12 @@
 
                         </v-tabs-items>
                         <Invoices v-if="view==='invoices'"/>
+                        <Adds/>
 
                     </v-card>
 
                 </v-row>
                 <v-row>
-                    <Adds/>
                 </v-row>
 
             </v-row>

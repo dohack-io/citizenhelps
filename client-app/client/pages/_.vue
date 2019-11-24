@@ -1,81 +1,34 @@
 <template>
     <v-app>
-        <v-container style="max-width: 300px">
-            <v-row justify="stretch">
+        <v-container style="max-width: 600px">
+            <span class="subtitle-2">
+                            Die Eingaben werden nicht gespeichert.
+            </span>
+            <v-row>
+                <v-col>
+                    <v-text-field
+                            :counter="50"
+                            v-model="text"></v-text-field>
+                    <v-btn @click="evaluate(text)">evaluate</v-btn>
+                    <!--                    is offensive: {{is_offensive_boolen}}-->
+                    <v-row v-for="(val,key) in results.slice().reverse()" :key="key">
+                        <v-col>
+                            <v-card class="px-2">
+                                <v-row justify="space-between">
+                                    <v-col>
+                                        {{val.text}}
 
-                <v-row justify="center">
-                    <v-card>
-                        <v-tabs
-                                v-model="tab"
-                                background-color="rgb(244,58,0)"
-                                dark
-                        >
-                            <v-menu bottom right>
-                                <template v-slot:activator="{ on }">
-                                    <v-btn
-                                            dark
-                                            icon
-                                            v-on="on"
-                                    >
-                                        <v-icon>mdi-dots-vertical</v-icon>
-                                    </v-btn>
-                                </template>
-                                <v-card>
-                                    <v-card-title>Welcome to TIROLERHOF</v-card-title>
-                                    <v-list>
-                                        <v-list-item
-                                                v-for="(item, i) in menus"
-                                                :key="i"
-                                                @click="view='invoices'"
-                                        >
-                                            <v-list-item-title>
-                                                {{ item[0] }}
-                                                <span style="color: #6d6f74">{{item[1]}}</span>
-                                            </v-list-item-title>
-                                        </v-list-item>
-                                    </v-list>
-                                </v-card>
+                                    </v-col>
+                                    <v-col class="flex-grow-0 flex-shrink-1">
+                                        {{val.is_offensive?'böse':'gut'}}
 
-                            </v-menu>
-                            <v-tabs-slider></v-tabs-slider>
+                                    </v-col>
+                                </v-row>
+                            </v-card>
+                        </v-col>
 
-                            <v-tab v-for="(apps_group,key) in icons" @click="view='apps'" :href="'#'+key" :key="key">
-                                {{key}}
-                                <!--                            <v-icon>mdi-phone</v-icon>-->
-                            </v-tab>
-
-                        </v-tabs>
-
-                        <v-tabs-items v-model="tab" v-if="view==='apps'">
-                            <v-tab-item
-                                    v-for="(apps_group,key) in icons"
-                                    :key="key"
-                                    :value="key"
-                            >
-                                <v-col cols="12" v-for="(apps, category) in apps_group" :key="category">
-                                    <v-card class="px-1" flat>
-                                        <h3 style="text-align: center">
-                                            {{category}}
-                                        </h3>
-                                        <v-row justify="center">
-                                            <v-card class="ma-1" v-for="(val, key) in apps" :key="key">
-                                                <v-img contain height="50" width="50" :src="val"/>
-                                            </v-card>
-                                        </v-row>
-                                    </v-card>
-                                </v-col>
-                            </v-tab-item>
-
-                        </v-tabs-items>
-                        <Invoices v-if="view==='invoices'"/>
-                        <Adds/>
-
-                    </v-card>
-
-                </v-row>
-                <v-row>
-                </v-row>
-
+                    </v-row>
+                </v-col>
             </v-row>
 
             <!--            <Help @close="stage='start'" v-if="stage==='help'"></Help>-->
@@ -89,15 +42,13 @@
 
 <script>
   import Vue from "vue";
-  import Help from "./help.vue";
-  import Report from "./report.vue";
-  import Invoices from "./invoices.vue";
-  import Adds from "./adds.vue";
+
   //import {LMap,LTileLayer,LControl} from "./../../node_modules/vue2-leaflet"
 
-  var api_host = 'https://ohsrb65n38.execute-api.eu-central-1.amazonaws.com/proxy/'
+  // var api_host = 'https://ohsrb65n38.execute-api.eu-central-1.amazonaws.com/proxy/'
 
   ;
+
 
   function sleep(s) {
     return new Promise(resolve => setTimeout(resolve, s * 1000));
@@ -117,143 +68,65 @@
     'Content-Type': 'application/json',
   };
   axios.defaults.method = 'post';
-  var api_aindex = axios.create({
-    url: api_host,
-  });
+  var api_aindex = axios.create({});
 
   export default {
-    components: {
-      Help, Report, Invoices, Adds
-
-    },
+    components: {},
     data: () => ({
-      tab: null,
-      view: 'apps',
-      stage: 'start',
-      loading: false,
-      icons: {
-        "Enjoy": {
-          "Hotel Services": [
-            "apps/spa.png",
-            "apps/bar.png",
-            "apps/chat_bot.png",
-            "apps/room_service.png",
-          ],
-          "Digital Guides": [
-            "apps/audio_guide.png",
-            "apps/app1.png",
-            "apps/ulmon.png",
-          ],
-          "City Discovery": [
-            "apps/trip_advisor.png",
-            "apps/tripcase.png",
-            "apps/yelp.jpg",
-            "apps/expedia.png",
-          ],
-        },
-        "Travel": {
-          "Green Travel": [
-            "apps/radl_karte.png",
-            "apps/salzburg_opnv.png",
-            "apps/salzburg_bahnen.png",
-          ],
-          "Car Rental": [
-            // "apps/booking.jpg",
-            "apps/sixt.png",
-            "apps/hertz.jpg",
-            "apps/obb_rail_drive.jpg",
-            // "apps/drive_now.jpg",
-            "apps/car2go.png",
-          ],
-          "Taxi Services": [
-            "apps/uber.jpg",
-            "apps/free_now.png",
-          ],
-        },
-        "新": {
-          "翻譯": [
-            "apps/google_translator.png",
-          ],
-          "地圖": [
-            "apps/google_maps.jpg",
-          ],
-          "購物": [
-            "apps/amazon.jpg",
-          ],
-        }
+      text: null,
+      is_offensive_boolen: null,
+      results: []
 
-      },
-      first_buttons: [
-        {
-          color: 'red',
-          text: 'Hilfe anfragen',
-          style: {
-            height: '60%',
-          },
-          icon: 'fas fa-phone-volume',
-          target_stage: 'help'
-
-        },
-        // {
-        //   color: 'green',
-        //   text: 'Erste Hilfe',
-        //   style: {
-        //     height: '30%',
-        //   },
-        //   target_stage: 'help'
-        // },
-        {
-          color: 'blue',
-          icon: 'fas fa-file-invoice',
-          text: 'Meldung erfassen',
-          style: {
-            height: '40%',
-          },
-          target_stage: 'report'
-        },
-
-      ],
-      menus: [
-        ['Your Phone Number:', '+4915773674378'],
-        ['Your Credit Card Balance:', '150 EUR'],
-        ['View Invoices']
-      ],
-
-      visited: [''],
-      data1: 0,
-      logged_in: false,
-      card_before: ['home'],
-      button: "home",
-      view_data: {},
 
     }),
     methods: {
-
-      get_coupon: function () {
+      is_offensive_func: function (val) {
+        val = val.body.attributeScores;
+        for (let key in val) {
+          if (val.hasOwnProperty(key)) {
+            if (val[key].summaryScore.value > 0.75) {
+              return true
+            }
+          }
+        }
+        return false
       },
-      view_invoices: function () {
-
-      },
-      switch_stage: async function (stage_name) {
-        this.loading = true;
-        this.stage = "";
-        await sleep(0.5);
-        this.loading = !this.loading;
-        this.stage = stage_name;
+      evaluate: function (text) {
+        let payload = {
+          "text": text,
+          "lang": "de"
+        };
+        axios
+            .post(
+                "/app/api/comment",
+                payload,
+                // {
+                //   headers: google.headers
+                // }
+            )
+            .then(response => {
+              console.log("Axios:", response.data);
+              this.is_offensive_boolen = this.is_offensive_func(response.data);
+              this.results.push({
+                text: text,
+                is_offensive: this.is_offensive_boolen
+              });
+              this.text = null;
+              // console.log(this.results);
+            })
+            .catch(error => {
+              // Handle Errors here.
+              let errorCode = error.code;
+              let errorMessage = error.message;
+              console.log('Error', errorCode, errorMessage);
+              // ...
+            });
       }
     },
-    watch: {
-      button() {
-
-      },
-      stage() {
-        console.log(this.stage);
-      }
-    },
+    watch: {},
     computed: {},
     created() {
-      this.view_data = this.start_card;
-      this.card_before.push(this.button);
+
     }
   };
 </script>
